@@ -22,9 +22,10 @@ namespace MyPortfolio
             Configuration = configuration;
         }
 
+        //Seed para usuário padrão
         private async Task CreateUserDefault(IServiceProvider serviceProvider)
         {
-            //... Seed para user
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var email = Configuration["User:Email"];
 
@@ -40,6 +41,7 @@ namespace MyPortfolio
                 var Cargo = Configuration["User:Cargo"];
                 var Avatar = Configuration["User:Avatar"];
                 var AboutDescription = Configuration["User:AboutDescription"];
+                var Role = Configuration["User:Role"];
 
                 //Cria o usuário padrão
                 var User = new ApplicationUser
@@ -54,8 +56,10 @@ namespace MyPortfolio
                     Avatar = Avatar,
                     CreatedOn = DateTime.UtcNow
                 };
+                await roleManager.CreateAsync(new IdentityRole(Role));
                 await userManager.CreateAsync(User);
                 await userManager.AddPasswordAsync(User, Pwd);
+                await userManager.AddToRoleAsync(User, Role);
             }
         }
 
@@ -98,6 +102,12 @@ namespace MyPortfolio
                 options.User.RequireUniqueEmail = true;
             });
 
+            //Claims-based
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", policy => policy.RequireRole("Admin"));
+            });
+
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
@@ -113,6 +123,10 @@ namespace MyPortfolio
             services.AddSession();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddControllersWithViews();
+
+            #if DEBUG
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            #endif
 
             services.AddScoped<ProfileManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -132,13 +146,14 @@ namespace MyPortfolio
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Site}/{action=Index}");
+                    pattern: "{controller=Site}/{action=Index}/{id?}");
             });
 
             //Cria user padrão
