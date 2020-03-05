@@ -1,4 +1,7 @@
 ﻿@inject MyPortfolio.Helpers.ProfileManager profile
+@{
+    var returnUrl = @Context.Request.Query["returnurl"];
+}
 
 <!DOCTYPE html>
 <html>
@@ -46,13 +49,15 @@
     <div class="d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="sidebar-header d-flex align-items-center">
-                <a asp-action="Index" asp-controller="Account">
+                <a asp-action="Index" asp-controller="Account" asp-route-returnUrl="@returnUrl">
                     <div class="avatar"><img src="~/img/@profile.CurrentUser.Avatar" alt="Avatar do usuário" class="img-fluid rounded-circle"></div>
                 </a>
-                <div class="title">
-                    <h1 class="h5">@profile.CurrentUser.Nome</h1>
-                    <p>@profile.CurrentUser.Cargo</p>
-                </div>
+                <a asp-action="Index" asp-controller="Account" asp-route-returnUrl="@returnUrl">
+                    <div class="title">
+                        <h1 class="h5">@profile.CurrentUser.Nome</h1>
+                        <p>@profile.CurrentUser.Cargo</p>
+                    </div>
+                </a>
             </div>
             <span class="heading">Main</span>
             <ul class="list-unstyled">
