@@ -1,0 +1,99 @@
+﻿@inject MyPortfolio.Helpers.ProfileManager profile
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Administrativo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli:300,400,700">
+    <link href="~/css/Admin/font-awesome.min.css" rel="stylesheet" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link href="~/css/Admin/font.css" rel="stylesheet" />
+        <link href="~/css/Admin/style.default.premium.css" rel="stylesheet" id="theme-stylesheet" />
+        <link href="~/css/Admin/custom.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/Admin/cssLogin.min.css" asp-append-version="true" />
+    </environment>
+    <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-5/img/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+                <div class="navbar-header">
+                    <a asp-action="Dashboard" asp-controller="Admin" class="navbar-brand">
+                        <div class="brand-text brand-big visible text-uppercase"><strong class="text-primary">Admin</strong><strong>istrativo</strong></div>
+                        <div class="brand-text brand-sm"><strong class="text-primary">S</strong><strong>2</strong></div>
+                    </a>
+                    <button class="sidebar-toggle"><i class="fa fa-arrow-left"></i></button>
+                </div>
+                <div class="right-menu list-inline no-margin-bottom">
+                    <div class="list-inline-item logout"><a id="logout" asp-action="Logout" asp-controller="Account" class="nav-link"> <span class="d-none d-sm-inline">Sair </span><i class="icon-logout"></i></a></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="d-flex align-items-stretch">
+        <nav id="sidebar">
+            <div class="sidebar-header d-flex align-items-center">
+                <a asp-action="Index" asp-controller="Account">
+                    <div class="avatar"><img src="~/img/@profile.CurrentUser.Avatar" alt="Avatar do usuário" class="img-fluid rounded-circle"></div>
+                </a>
+                <div class="title">
+                    <h1 class="h5">@profile.CurrentUser.Nome</h1>
+                    <p>@profile.CurrentUser.Cargo</p>
+                </div>
+            </div>
+            <span class="heading">Main</span>
+            <ul class="list-unstyled">
+                <li class="active"><a asp-action="Dashboard"> <i class="icon-home"></i>Home </a></li>
+                <li>
+                    <a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-light-bulb"></i>Projetos </a>
+                    <ul id="componentsDropdown" class="collapse list-unstyled ">
+                        <li><a href="components-preloader.html">Adicionar</a></li>
+                        <li><a href="components-preloader.html">Listar</a></li>
+                    </ul>
+                </li>
+            </ul><span class="heading">Extras</span>
+            <ul class="list-unstyled">
+                <li> <a href="#"> <i class="icon-settings"></i>Configurações </a></li>
+            </ul>
+        </nav>
+
+        <div class="page-content">
+
+            @RenderBody()
+
+            <footer class="footer">
+                <div class="footer__block block no-margin-bottom">
+                    <div class="container-fluid text-center">
+                        <p class="no-margin-bottom">Marcelo Biberg </p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/popper.js/umd/popper.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery.cookie/jquery.cookie.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
+        <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
+        <script src="~/js/Admin/home-premium.js"></script>
+        <script src="~/js/Admin/front.js"></script>
+    </environment>
+</body>
+</html>
