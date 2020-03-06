@@ -17,6 +17,7 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link href="~/css/Admin/font.css" rel="stylesheet" />
+        @RenderSection("DataTableCss", required: false)
         <link href="~/css/Admin/style.default.premium.css" rel="stylesheet" id="theme-stylesheet" />
         <link href="~/css/Admin/custom.css" rel="stylesheet" />
     </environment>
@@ -61,12 +62,12 @@
             </div>
             <span class="heading">Main</span>
             <ul class="list-unstyled">
-                <li class="active"><a asp-action="Dashboard"> <i class="icon-home"></i>Home </a></li>
+                <li class="active"><a asp-action="Dashboard" asp-controller="Admin"> <i class="icon-home"></i>Home </a></li>
                 <li>
                     <a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-light-bulb"></i>Projetos </a>
                     <ul id="componentsDropdown" class="collapse list-unstyled ">
                         <li><a href="components-preloader.html">Adicionar</a></li>
-                        <li><a href="components-preloader.html">Listar</a></li>
+                        <li><a asp-action="Index" asp-controller="Projeto">Listar</a></li>
                     </ul>
                 </li>
             </ul><span class="heading">Extras</span>
@@ -95,6 +96,7 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
         <script src="~/lib/jquery.cookie/jquery.cookie.js"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        @RenderSection("DataTableJs", required: false)
         <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
         <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
         <script src="~/js/Admin/home-premium.js"></script>

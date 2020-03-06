@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section DataTableCss {
+    <link href="~/lib/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <link href="~/lib/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+}
+
+<div class="page-header no-margin-bottom">
+    <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">Projetos</h2>
+    </div>
+</div>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Dashboard" asp-controller="Admin">Home</a></li>
+        <li class="breadcrumb-item active">Projetos listar</li>
+    </ul>
+</div>
+<section class="no-padding-top">
+    <div class="container-fluid">
+        <div class="block">
+            <div class="block-body">
+                <div class="table-responsive">
+                    <table id="datatable1" style="width: 100%;" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>City</th>
+                                <th>Orders</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="javascript: return(void);" class="text-muted">Nielsen Cobb</a></td>
+                                <td>Memora</td>
+                                <td>nielsencobb@memora.com</td>
+                                <td>+1 (851) 552-2735</td>
+                                <td>Graniteville</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript: return(void);" class="text-muted">Margret Cote</a></td>
+                                <td>Zilidium</td>
+                                <td>margretcote@zilidium.com</td>
+                                <td>+1 (893) 532-2218</td>
+                                <td>Foxworth</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td><a href="javascript: return(void);" class="text-muted">Rachel Vinson</a></td>
+                                <td>Chorizon</td>
+                                <td>rachelvinson@chorizon.com</td>
+                                <td>+1 (891) 494-2060</td>
+                                <td>Eastmont</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section DataTableJs {
+    <script src="~/lib/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/lib/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/js/Admin/tables-datatable.js"></script>
+}
