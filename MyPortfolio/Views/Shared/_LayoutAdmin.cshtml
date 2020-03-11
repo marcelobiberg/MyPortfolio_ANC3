@@ -66,7 +66,7 @@
                 <li>
                     <a href="#componentsDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-light-bulb"></i>Projetos </a>
                     <ul id="componentsDropdown" class="collapse list-unstyled ">
-                        <li><a href="components-preloader.html">Adicionar</a></li>
+                        <li><a asp-action="Create" asp-controller="Projeto">Adicionar</a></li>
                         <li><a asp-action="Index" asp-controller="Projeto">Listar</a></li>
                     </ul>
                 </li>
@@ -97,6 +97,7 @@
         <script src="~/lib/jquery.cookie/jquery.cookie.js"></script>
         <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
         @RenderSection("DataTableJs", required: false)
+        @RenderSection("DropzoneJs", required: false)
         <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
         <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
         <script src="~/js/Admin/home-premium.js"></script>

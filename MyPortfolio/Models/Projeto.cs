@@ -11,7 +11,7 @@ namespace MyPortfolio.Models
         public string ImgBackground { get; set; }
         public string Img01 { get; set; }
         public string Img02 { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime UpdatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
     }
 }
