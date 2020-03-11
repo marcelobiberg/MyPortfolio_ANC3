@@ -12,5 +12,7 @@ namespace MyPortfolio.Data
         {
         }
 
+        public DbSet<Projeto> Projetos { get; set; }
+
     }
 }
