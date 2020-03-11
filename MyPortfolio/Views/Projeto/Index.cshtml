@@ -23,96 +23,85 @@
 <section class="no-padding-top">
     <div class="container-fluid">
         <div class="block">
-            @if (Model.PagedProjetos.Count > 0)
-            {
-                <div class="block-body">
-                    <div class="row mt-3 ml-2">
-                        <div class="col-xs-3">
-                            <div class="form-group">
-                                <select class="custom-select" asp-for="FiltroId" asp-items="Model.ProjetoFiltro"></select>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-                            </div>
-                        </div>
-
-                        <div class="col-xs-1">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default form-control"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <button asp-action="Index" class="btn btn-default">Exibir todos</button>
-                            </div>
+            <div class="block-body">
+                <div class="row mt-3 ml-2">
+                    <div class="col-xs-3">
+                        <div class="form-group">
+                            <select class="custom-select" asp-for="FiltroId" asp-items="Model.ProjetoFiltro"></select>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table id="datatable1" style="width: 100%;" class="table">
-                            <thead>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                        </div>
+                    </div>
+
+                    <div class="col-xs-1">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default form-control"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <button asp-action="Index" class="btn btn-default">Exibir todos</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table id="datatable1" style="width: 100%;" class="table">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var pro in Model.PagedProjetos)
+                            {
                                 <tr>
-                                    <th>Título</th>
-                                    <th>Categoria</th>
+                                    <td><a href="javascript: return(void);" class="text-muted">@pro.Titulo</a></td>
+                                    <td>@pro.Categoria</td>
+                                    <td align="right" valign="middle">
+                                        <a asp-controller="Cadastro" asp-action="EditUser" asp-route-Id="@pro.ID" class="btn btn-primary" title="Editar cadastro">
+                                            <i class="fas fa-wrench"></i>
+                                        </a>
+                                        <a href="#" data-id="@pro.ID" class="btn btn-danger" data-toggle="modal" @*data-target="#modal-danger"*@ title="Remover cadastro" id="remUser" onclick="ShowModal('@pro.ID');">
+                                            <i class="fas fas fa-trash"></i>
+                                        </a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var pro in Model.PagedProjetos)
-                                {
-                                    <tr>
-                                        <td><a href="javascript: return(void);" class="text-muted">@pro.Titulo</a></td>
-                                        <td>@pro.Categoria</td>
-                                        <td align="right" valign="middle">
-                                            <a asp-controller="Cadastro" asp-action="EditUser" asp-route-Id="@pro.ID" class="btn btn-primary" title="Editar cadastro">
-                                                <i class="fas fa-wrench"></i>
-                                            </a>
-                                            <a href="#" data-id="@pro.ID" class="btn btn-danger" data-toggle="modal" @*data-target="#modal-danger"*@ title="Remover cadastro" id="remUser" onclick="ShowModal('@pro.ID');">
-                                                <i class="fas fas fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer text-muted">
-                        @{
-                            var prevDisabled = !Model.PagedProjetos.HasPreviousPage ? "disabled" : "";
-                            var nextDisabled = !Model.PagedProjetos.HasNextPage ? "disabled" : "";
-                        }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                    @{
+                        var prevDisabled = !Model.PagedProjetos.HasPreviousPage ? "disabled" : "";
+                        var nextDisabled = !Model.PagedProjetos.HasNextPage ? "disabled" : "";
+                    }
 
-                        <div class="col-lg-2">
-                            <div class="d-inline-block flex-row ml-4 mb-4">
-                                <a asp-action="Index"
-                                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                                   asp-route-pageNumber="@(Model.PagedProjetos.PageIndex - 1)"
-                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                                   class="btn btn-default @prevDisabled">
-                                    Voltar
-                                </a>
-                                <a asp-action="Index"
-                                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                                   asp-route-pageNumber="@(Model.PagedProjetos.PageIndex + 1)"
-                                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                                   class="btn btn-default @nextDisabled">
-                                    Próximo
-                                </a>
-                            </div>
+                    <div class="col-lg-2">
+                        <div class="d-inline-block flex-row ml-4 mb-4">
+                            <a asp-action="Index"
+                               asp-route-sortOrder="@ViewData["CurrentSort"]"
+                               asp-route-pageNumber="@(Model.PagedProjetos.PageIndex - 1)"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                               class="btn btn-default @prevDisabled">
+                                Voltar
+                            </a>
+                            <a asp-action="Index"
+                               asp-route-sortOrder="@ViewData["CurrentSort"]"
+                               asp-route-pageNumber="@(Model.PagedProjetos.PageIndex + 1)"
+                               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                               class="btn btn-default @nextDisabled">
+                                Próximo
+                            </a>
                         </div>
                     </div>
                 </div>
-            }
-            else
-            {
-                <div class="block-body text-center">
-                    <div class="title"><strong>Você ainda não tem um projeto cadastrado</strong></div>
-                    <div class="title"><a asp-action="Create" asp-controller="Projeto"> <b>ADICIONAR PROJETO</b></a></div>
-                </div>
-            }
+            </div>
         </div>
     </div>
 </section>

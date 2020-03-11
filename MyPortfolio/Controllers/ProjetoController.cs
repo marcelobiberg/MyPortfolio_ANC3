@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +15,10 @@ namespace MyPortfolio.Controllers
     public class ProjetoController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private IWebHostEnvironment _hostingEnvironment;
 
-        public ProjetoController(ApplicationDbContext context,
-            IWebHostEnvironment environment)
+        public ProjetoController(ApplicationDbContext context)
         {
             _context = context;
-            _hostingEnvironment = environment;
         }
 
         public async Task<IActionResult> Index()
@@ -97,27 +91,7 @@ namespace MyPortfolio.Controllers
             return View(vm);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
 
-        //Criar o post de Projeto/Create .  .
-
-        [HttpPost]
-        public async Task<IActionResult> UploadFiles(IFormFile file)
-        {
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
-
-            if (file.Length > 0)
-            {
-                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
-            }
-            return RedirectToAction("Index");
-        }
 
     }
 }
