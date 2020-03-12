@@ -20,13 +20,13 @@ namespace MyPortfolio.Controllers
     public class ProjetoController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _hostingEnvironment;
+        private IWebHostEnvironment _hostingEnvironment;
 
         public ProjetoController(ApplicationDbContext context,
-            IWebHostEnvironment hostingEnvironment)
+            IWebHostEnvironment environment)
         {
             _context = context;
-            _hostingEnvironment = hostingEnvironment;
+            _hostingEnvironment = environment;
         }
 
         public async Task<IActionResult> Index()
@@ -97,6 +97,11 @@ namespace MyPortfolio.Controllers
             };
 
             return View(vm);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
