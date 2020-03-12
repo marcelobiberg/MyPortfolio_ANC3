@@ -19,7 +19,7 @@ namespace MyPortfolio.Models
         public string Img01 { get; set; }
         [MaxLength(300)]
         public string Img02 { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public DateTime? UpdatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
     }
 }
