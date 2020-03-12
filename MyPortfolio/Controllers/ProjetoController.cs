@@ -169,5 +169,29 @@ namespace MyPortfolio.Controllers
             return Ok();
         }
 
+        public async Task<IActionResult> Details(string Id)
+        {
+            var project = await _context.Projetos.FindAsync(Id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            if (project.ImgBackground == null)
+            {
+                project.ImgBackground = "No-Img-Default.jpg";
+            }
+            if (project.Img01 == null)
+            {
+                project.Img01 = "No-Img-Default.jpg";
+            }
+            if (project.Img02 == null)
+            {
+                project.Img02 = "No-Img-Default.jpg";
+            }
+
+            return View(project);
+        }
+
     }
 }
