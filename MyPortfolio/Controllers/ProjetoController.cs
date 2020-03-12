@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -19,10 +20,13 @@ namespace MyPortfolio.Controllers
     public class ProjetoController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ProjetoController(ApplicationDbContext context)
+        public ProjetoController(ApplicationDbContext context,
+            IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public async Task<IActionResult> Index()
