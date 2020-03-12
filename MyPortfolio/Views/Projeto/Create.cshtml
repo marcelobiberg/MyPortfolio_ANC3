@@ -1,4 +1,4 @@
-﻿
+﻿@model Projeto
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -21,32 +21,27 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-xl-8">
-                        <form asp-action="Create">
+
+                        <form action="/" enctype="multipart/form-data" method="POST">
                             <div class="form-group">
                                 <label class="form-control-label">Título</label>
-                                <input type="text" placeholder="Título para o seu projeto" class="form-control">
+                                <input type="text" placeholder="Título para o seu projeto" class="form-control" id="Titulo">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Categoria</label>
-                                <input type="text" placeholder="Categoria do projeto" class="form-control">
+                                <input type="text" placeholder="Categoria do projeto" class="form-control" id="Categoria">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">Descrição</label>
-                                <textarea rows="4" placeholder="Descrição sobre o projeto" class="form-control"></textarea>
+                                <textarea rows="4" placeholder="Descrição sobre o projeto" class="form-control" id="Desc"></textarea>
                             </div>
 
-                            <div class="form-group">
-                                <label class="form-control-label">Imagem para o Background </label>
-                                <div class="dropzone" id="image-1-1-2"></div>
+                            <div class="">
+                                <label class="form-control-label">Imagens do projeto</label>
+                                <div class="dropzone" id="myDropzone"></div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="form-control-label">Imagem para o Background </label>
-                                <div class="dropzone" id="image-2-2-2"></div>
-                            </div>
-
                             <div class="form-group mt-5">
-                                <input type="submit" value="Adicionar" class="btn btn-primary">
+                                <button class="btn btn-primary" type="submit" id="submit-all"> Adicionar </button>
                             </div>
                         </form>
                     </div>
@@ -55,3 +50,81 @@
         </div>
     </div>
 </section>
+
+
+@section DropzoneJs {
+    <script src="~/lib/dropzone/dropzone.js"></script>
+
+    <script type="text/javascript">
+        //Mensagens padrões do DropzoneJS
+        Dropzone.prototype.defaultOptions.dictDefaultMessage = "Arraste e solte as imagens aqui";
+        Dropzone.prototype.defaultOptions.dictFallbackMessage = "Your browser does not support drag'n'drop file uploads.";
+        Dropzone.prototype.defaultOptions.dictFallbackText = "Please use the fallback form below to upload your files like in the olden days.";
+        Dropzone.prototype.defaultOptions.dictFileTooBig = "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.";
+        Dropzone.prototype.defaultOptions.dictInvalidFileType = "You can't upload files of this type.";
+        Dropzone.prototype.defaultOptions.dictResponseError = "Server responded with {{statusCode}} code.";
+        Dropzone.prototype.defaultOptions.dictCancelUpload = "Cancel upload";
+        Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Are you sure you want to cancel this upload?";
+        Dropzone.prototype.defaultOptions.dictRemoveFile = "<button class='btn-lg btn-circle btn-danger'>Remover</button>";
+        Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "You can not upload any more files.";
+
+        function myParamName() {
+            return "files";
+        };
+
+        Dropzone.options.myDropzone = {
+            url: "/Projeto/Create",
+            maxFilesize: 2, // MB
+            maxFiles: 3,
+            parallelUploads: 3,
+            clickable: true,
+            acceptedFiles: ".png,.jpg",
+            uploadMultiple: true,
+            createImageThumbnails: true,
+            autoProcessQueue: false,
+            addRemoveLinks: true,
+            paramName: myParamName,
+
+            init: function () {
+                myDropzone = this;
+                var submitButton = document.querySelector("#submit-all");
+                var wrapperThis = this;
+
+                submitButton.addEventListener("click", function () {
+                    wrapperThis.processQueue();
+                });
+
+                this.on('sendingmultiple', function (data, xhr, formData) {
+                    xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val());
+                    formData.append("Titulo", $('#Titulo').val().trim());
+                    formData.append("Categoria", $('#Categoria').val().trim());
+                    formData.append("Desc", $('#Desc').val().trim());
+
+                    submitButton.setAttribute("disabled", "disabled");
+                });
+
+                this.on("successmultiple", function (file, formData) {
+                    Messenger.options = {
+                        extraClasses: "messenger-fixed messenger-on-top",
+                        theme: "flat",
+                        messageDefaults: {
+                            showCloseButton: !0
+                        }
+                    },
+                    Messenger().post({
+                        message: "Projeto adicionado com sucesso =)",
+                        type: "success"
+                    })
+                    setTimeout(function(){window.location.href = "/Projeto/Index";}, 3500);
+                });
+                this.on("error", function (file, errorMessage) {
+                    $("body").prepend('<div class="alert alert-danger alert-dismissable">' +
+                        '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+                        '<strong>Error!</strong> ' + errorMessage + '</div >');
+                    submitButton.removeAttribute("disabled");
+                });
+            }
+        };
+
+    </script>
+}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using MyPortfolio.ViewModels;
 
 namespace MyPortfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProjetoController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -102,21 +104,69 @@ namespace MyPortfolio.Controllers
             return View();
         }
 
-        //Criar o post de Projeto/Create .  .
-
         [HttpPost]
-        public async Task<IActionResult> UploadFiles(IFormFile file)
+        public async Task<IActionResult> Create(string Titulo,
+            string Categoria,
+            string desc,
+            List<IFormFile> files)
         {
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+            var project = new Projeto();
 
-            if (file.Length > 0)
+            //Caminho raiz para os arquivos
+            var rootPath = _hostingEnvironment.WebRootPath;
+            //Caminho para o diretório padrão
+            var pathToDir = Path.Combine(rootPath, "img/Uploads");
+
+            try
             {
-                using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                int count = 0;
+                foreach (var file in files)
                 {
-                    await file.CopyToAsync(fileStream);
+                    if (file.Length > 0)
+                    {
+                        count++;
+                        //Resgata a extensão do arquivo
+                        var tipoFile = Path.GetExtension(file.FileName);
+                        //Nome único para o arquivo
+                        var fileName = $@"{Guid.NewGuid()}" + tipoFile;
+
+                        var filePath = Path.Combine(pathToDir, fileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
+
+                        switch (count)
+                        {
+                            case 1:
+                                project.ImgBackground = fileName;
+                                break;
+                            case 2:
+                                project.Img01 = fileName;
+                                break;
+                            case 3:
+                                project.Img02 = fileName;
+                                break;
+                        }
+                    }
                 }
+
+                project.ID = Guid.NewGuid().ToString();
+                project.Titulo = Titulo;
+                project.Categoria = Categoria;
+                project.Descricao = desc;
+                project.CreatedOn = DateTime.UtcNow;
+
+                await _context.Projetos.AddAsync(project);
+                await _context.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                throw new Exception("Erro: " + ex.Message + " / " + ex.InnerException);
+            }
+
+            return Ok();
         }
 
     }
