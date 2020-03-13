@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MyPortfolio.Data;
 using MyPortfolio.Models;
 using MyPortfolio.ViewModels;
 
@@ -16,12 +18,15 @@ namespace MyPortfolio.Controllers
     {
         private readonly ILogger<SiteController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
 
         public SiteController(ILogger<SiteController> logger,
             UserManager<ApplicationUser> userManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ApplicationDbContext context)
         {
+            _context = context;
             _logger = logger;
             _userManager = userManager;
             _configuration = configuration;
@@ -36,9 +41,12 @@ namespace MyPortfolio.Controllers
                 return NotFound();
             }
 
+            var projeto = await _context.Projetos.ToListAsync();
+
             var vm = new SiteViewModel
             {
-                Profile = user
+                Profile = user,
+                Projetos = projeto
             };
 
             return View(vm);
