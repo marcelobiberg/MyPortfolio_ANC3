@@ -51,22 +51,9 @@
     </div>
 </section>
 
-
 @section DropzoneJs {
     <script src="~/lib/dropzone/dropzone.js"></script>
-
     <script type="text/javascript">
-        //Mensagens padrões do DropzoneJS
-        Dropzone.prototype.defaultOptions.dictDefaultMessage = "Arraste e solte as imagens aqui";
-        Dropzone.prototype.defaultOptions.dictFallbackMessage = "Your browser does not support drag'n'drop file uploads.";
-        Dropzone.prototype.defaultOptions.dictFallbackText = "Please use the fallback form below to upload your files like in the olden days.";
-        Dropzone.prototype.defaultOptions.dictFileTooBig = "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.";
-        Dropzone.prototype.defaultOptions.dictInvalidFileType = "You can't upload files of this type.";
-        Dropzone.prototype.defaultOptions.dictResponseError = "Server responded with {{statusCode}} code.";
-        Dropzone.prototype.defaultOptions.dictCancelUpload = "Cancel upload";
-        Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Are you sure you want to cancel this upload?";
-        Dropzone.prototype.defaultOptions.dictRemoveFile = "<button class='btn-lg btn-circle btn-danger'>Remover</button>";
-        Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "You can not upload any more files.";
 
         function myParamName() {
             return "files";
@@ -84,6 +71,17 @@
             autoProcessQueue: false,
             addRemoveLinks: true,
             paramName: myParamName,
+           //Mensagens padrões do DropzoneJS
+            dictDefaultMessage: "Arraste e solte as imagens aqui",
+            dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
+            dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+            dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+            dictInvalidFileType: "You can't upload files of this type.",
+            dictResponseError: "Server responded with {{statusCode}} code.",
+            dictCancelUpload: "Cancel upload",
+            dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
+            dictRemoveFile: "<button class='btn-lg btn-circle btn-danger'>Remover</button>",
+            dictMaxFilesExceeded: "You can not upload any more files.",
 
             init: function () {
                 myDropzone = this;
