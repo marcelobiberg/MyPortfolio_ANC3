@@ -112,25 +112,28 @@
         <div class="container">
             <div class="beker_tm_main_title">
                 <span>Projetos</span>
-                <h3>Projetos mais recentes</h3>
+                <h3>Projetos desenvolvidos em ASP.NET e ASP.NET Core</h3>
             </div>
             <div class="beker_tm_projects_wrap beker_tm_waypoint_effect">
-                <ul class="beker_tm_portfolio_list">
-                    <li>
-                        <div class="list_inner">
-                            <div class="image_wrap">
-                                <img src="img/portfolio/600x600.jpg" alt="" />
-                                <div class="main_image" data-img-url="img/portfolio/1.jpg"></div>
+                @foreach (var p in Model.Projetos)
+                {
+                    <ul class="beker_tm_portfolio_list">
+                        <li>
+                            <div class="list_inner">
+                                <div class="image_wrap">
+                                    <img src="~/img/600x600.jpg" alt="Imagem demonstração do projeto"/>
+                                    <div class="main_image" data-img-url="/img/Uploads/@p.ImgBackground"></div>
+                                </div>
+                                <div class="overlay"></div>
+                                <div class="overlay_text">
+                                    <h3>@p.Titulo</h3>
+                                    <span>@p.Categoria</span>
+                                </div>
+                                <a class="full_link" asp-action="Details"></a>
                             </div>
-                            <div class="overlay"></div>
-                            <div class="overlay_text">
-                                <h3>AOC Production</h3>
-                                <span>Design</span>
-                            </div>
-                            <a class="full_link" href="portfolio-single.html"></a>
-                        </div>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                }
                 <div class="beker_tm_load_more">
                     <div class="inner">
                         <a href="#"><span>Mais</span><img class="svg" src="~/img/svg/spinner.svg" alt="Spinner em svg" /></a>
