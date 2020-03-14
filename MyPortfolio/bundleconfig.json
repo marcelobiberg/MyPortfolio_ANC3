@@ -12,5 +12,19 @@
       "wwwroot/js/Site/plugins.js",
       "wwwroot/js/Site/init.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/Login/cssLogin.min.css",
+    "inputFiles": [
+      "wwwroot/css/Admin/font.css",
+      "wwwroot/css/Admin/style.default.premium.css",
+      "wwwroot/css/Admin/custom.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/Login/jsLogin.min.js",
+    "inputFiles": [
+      "wwwroot/js/Admin/front.js"
+    ]
   }
 ]  
