@@ -139,8 +139,6 @@ namespace MyPortfolio
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
-                //###################################### remover aqui apos solucionar o problema ######################################
-                app.UseDeveloperExceptionPage();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
