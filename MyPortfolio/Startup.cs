@@ -78,6 +78,7 @@ namespace MyPortfolio
                 options.UseSqlServer(Configuration.GetConnectionString("StrCon")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddDefaultTokenProviders()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -124,10 +125,6 @@ namespace MyPortfolio
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddControllersWithViews();
 
-            #if DEBUG
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            #endif
-
             services.AddScoped<ProfileManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
@@ -142,18 +139,17 @@ namespace MyPortfolio
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+                //###################################### remover aqui apos solucionar o problema ######################################
+                app.UseDeveloperExceptionPage();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseRouting();
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Site}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("Default", "{controller=Site}/{action=Index}/{id?}");
             });
 
             //Cria user padrão

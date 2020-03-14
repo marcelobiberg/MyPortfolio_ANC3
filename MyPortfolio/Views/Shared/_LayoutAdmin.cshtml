@@ -26,7 +26,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/Admin/cssLogin.min.css" asp-append-version="true" />
+        @RenderSection("GalleryCss", required: false)
+        @RenderSection("DataTableCss", required: false)
+        <link rel="stylesheet" href="~/css/Admin/cssAdmin.min.css" asp-append-version="true" />
     </environment>
     <link rel="shortcut icon" href="https://d19m59y37dris4.cloudfront.net/dark-admin-premium/1-4-5/img/favicon.ico">
 </head>
@@ -96,13 +98,22 @@
         <script src="~/lib/popper.js/umd/popper.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
         <script src="~/lib/jquery.cookie/jquery.cookie.js"></script>
-        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
         @RenderSection("DataTableJs", required: false)
         @RenderSection("DropzoneJs", required: false)
-        <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
-        <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
         @RenderSection("GalleryJS", required: false)
-    <script src="~/js/Admin/front.js"></script>
+        <script src="~/js/Admin/front.js"></script>
     </environment>
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="~/lib/popper.js/umd/popper.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery.cookie/jquery.cookie.js"></script>
+        @RenderSection("DataTableJs", required: false)
+        @RenderSection("DropzoneJs", required: false)
+        @RenderSection("GalleryJS", required: false)
+        <script src="~/js/Admin/jsAdmin.min.js" asp-append-version="true"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
