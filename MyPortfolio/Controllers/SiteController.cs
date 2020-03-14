@@ -51,5 +51,12 @@ namespace MyPortfolio.Controllers
 
             return View(vm);
         }
+
+        public async Task<IActionResult> ProjetoDetalhes(string Id)
+        {
+            var projeto = await _context.Projetos.FindAsync(Id);
+
+            return View(projeto);
+        }
     }
 }

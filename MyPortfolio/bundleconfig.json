@@ -1,42 +1,16 @@
 [
   {
-    "outputFileName": "wwwroot/css/Site/cssSite.min.css",
+    "outputFileName": "wwwroot/css/Site/siteCss.min.css",
     "inputFiles": [
-      "wwwroot/css/Site/styleSite.css",
-      "wwwroot/css/Site/plugins.css"
+      "wwwroot/css/Site/plugins.css",
+      "wwwroot/css/Site/styleSite.css"
     ]
   },
   {
-    "outputFileName": "wwwroot/js/Site/jsSite.min.js",
+    "outputFileName": "wwwroot/js/Site/siteJs.min.js",
     "inputFiles": [
-      "wwwroot/js/Site/init.js",
-      "wwwroot/js/Site/plugins.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
-  },
-  {
-    "outputFileName": "wwwroot/css/Login/cssLogin.min.css",
-    "inputFiles": [
-      "wwwroot/css/Login/font.css",
-      "wwwroot/css/Login/style.default.premium.css",
-      "wwwroot/css/Login/custom.css"
+      "wwwroot/js/Site/plugins.js",
+      "wwwroot/js/Site/init.js"
     ]
-  },
-  {
-    "outputFileName": "wwwroot/js/Login/jsLogin.min.js",
-    "inputFiles": [
-      "wwwroot/lib/jquery.cookie/jquery.cookie.js",
-      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
-      "wwwroot/js/Login/front.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    },
-    "sourceMap": false
   }
-]
+]  

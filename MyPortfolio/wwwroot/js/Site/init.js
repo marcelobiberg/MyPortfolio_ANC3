@@ -413,7 +413,7 @@ function beker_tm_preloader(){
     setTimeout(function() {
         $(".beker_tm_loader-wrapper").fadeOut('fast');
         (mainPreloader).fadeOut('fast');
-    }, 4500);
+    }, 3500);
 }
 
 // -----------------------------------------------------

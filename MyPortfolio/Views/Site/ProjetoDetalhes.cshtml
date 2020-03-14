@@ -1,0 +1,80 @@
+﻿@model Projeto
+@{
+    Layout = "~/Views/Shared/_LayoutSite.cshtml";
+}
+
+<div class="header_wrap">
+    <div class="to_home">
+        <a asp-action="Index">Home</a>
+    </div>
+</div>
+
+<div class="beker_tm_section" id="home">
+    <div class="beker_tm_hero_wrap" data-img-url="/img/Uploads/@Model.ImgBackground">
+        <div class="overlay"></div>
+        <div class="texts_wrap">
+            <div class="name_holder">
+                <h3>@Model.Titulo</h3>
+            </div>
+        </div>
+        <div class="beker_tm_down anchor">
+            <div class="down-icon white top_120">
+                <a href="#single">
+                    <svg width="26px" height="100%" viewBox="0 0 247 390" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+                        <path id="wheel" d="M123.359,79.775l0,72.843" style="fill:none;stroke:#fff;stroke-width:20px;" />
+                        <path id="mouse" d="M236.717,123.359c0,-62.565 -50.794,-113.359 -113.358,-113.359c-62.565,0 -113.359,50.794 -113.359,113.359l0,143.237c0,62.565 50.794,113.359 113.359,113.359c62.564,0 113.358,-50.794 113.358,-113.359l0,-143.237Z" style="fill:none;stroke:#fff;stroke-width:20px;" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="beker_tm_wrap_inner" id="single">
+    <div class="beker_tm_section">
+        <div class="container">
+            <div class="beker_tm_portfolio_single_wrap">
+                <div class="single_inner">
+                    <div class="single_descriptions_wrap">
+                        <div class="leftbox">
+                            <h3>@Model.Titulo</h3>
+                            <p>@Model.Descricao</p>
+                        </div>
+                        <div class="rightbox">
+                            <h3 class="detail">Detalhes do projeto</h3>
+                            <ul>
+                                <li>
+                                    <p><span class="first">Categoria:</span><span class="second">@Model.Categoria</span></p>
+                                    <img class="svg" src="~/img/svg/menu.svg" />
+                                </li>
+                                <li>
+                                    <p><span class="first">Back-end:</span><span class="second">ASP.NET Core 3.1</span></p>
+                                    <img class="svg" src="~/img/svg/comment.svg" />
+                                </li>
+                                <li>
+                                    <p><span class="first">Front-end:</span><span class="second">BEKER Template</span></p>
+                                    <img class="svg" src="~/img/svg/comment.svg" />
+                                </li>
+                                <li>
+                                    <p><span class="first">Banco de dados:</span><span class="second">SQL Server</span></p>
+                                    <img class="svg" src="~/img/svg/comment.svg" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="extra_images_list">
+                        <ul>
+                            <li>
+                                <img src="~/img/Uploads/@Model.Img01" alt="" />
+                                <div class="overlay"></div>
+                            </li>
+                            <li>
+                                <img src="~/img/Uploads/@Model.Img02" alt="" />
+                                <div class="overlay"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
