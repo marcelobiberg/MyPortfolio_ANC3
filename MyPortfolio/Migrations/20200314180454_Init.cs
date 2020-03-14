@@ -54,6 +54,25 @@ namespace MyPortfolio.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Projetos",
+                columns: table => new
+                {
+                    ID = table.Column<string>(nullable: false),
+                    Titulo = table.Column<string>(maxLength: 100, nullable: true),
+                    Descricao = table.Column<string>(maxLength: 500, nullable: true),
+                    Categoria = table.Column<string>(maxLength: 150, nullable: true),
+                    ImgBackground = table.Column<string>(maxLength: 300, nullable: true),
+                    Img01 = table.Column<string>(maxLength: 300, nullable: true),
+                    Img02 = table.Column<string>(maxLength: 300, nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    UpdatedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Projetos", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -215,6 +234,9 @@ namespace MyPortfolio.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Projetos");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

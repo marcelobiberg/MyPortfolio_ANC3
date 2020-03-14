@@ -349,3 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 /MyPortfolio/wwwroot/img/Uploads
+/MyPortfolio/appsettings.Production.json
