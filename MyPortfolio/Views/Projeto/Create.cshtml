@@ -31,6 +31,18 @@
                                 <input type="text" placeholder="Categoria do projeto" class="form-control" id="Categoria">
                             </div>
                             <div class="form-group">
+                                <label class="form-control-label">Back-end</label>
+                                <input type="text" placeholder="Tecnologias de back-end" class="form-control" id="Backend">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Front-end</label>
+                                <input type="text" placeholder="Tecnologias de front-end" class="form-control" id="Frontend">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Banco de dados</label>
+                                <input type="text" placeholder="Banco de dados" class="form-control" id="BancoDados">
+                            </div>
+                            <div class="form-group">
                                 <label class="form-control-label">Descrição</label>
                                 <textarea rows="4" placeholder="Descrição sobre o projeto" class="form-control" id="Desc"></textarea>
                             </div>
@@ -52,6 +64,8 @@
 
 @section DropzoneJs {
     <script src="~/lib/dropzone/dropzone.js"></script>
+    <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
+    <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
     <script type="text/javascript">
 
         function myParamName() {
@@ -95,6 +109,9 @@
                     xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val());
                     formData.append("Titulo", $('#Titulo').val().trim());
                     formData.append("Categoria", $('#Categoria').val().trim());
+                    formData.append("BackEnd", $('#Backend').val().trim());
+                    formData.append("FrontEnd", $('#Frontend').val().trim());
+                    formData.append("BD", $('#BancoDados').val().trim());
                     formData.append("Desc", $('#Desc').val().trim());
 
                     submitButton.setAttribute("disabled", "disabled");
