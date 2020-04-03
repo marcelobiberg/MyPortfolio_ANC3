@@ -11,8 +11,14 @@ namespace MyPortfolio.Models
         public string Titulo { get; set; }
         [MaxLength(500)]
         public string Descricao { get; set; }
-        [MaxLength(150)]
-        public string Categoria { get; set; }
+        [MaxLength(100)]
+        public string Tipo { get; set; }
+        [MaxLength(100)]
+        public string FrontEnd { get; set; }
+        [MaxLength(100)]
+        public string BackEnd { get; set; }
+        [MaxLength(100)]
+        public string BancoDados { get; set; }
         [MaxLength(300)]
         public string ImgBackground { get; set; }
         [MaxLength(300)]

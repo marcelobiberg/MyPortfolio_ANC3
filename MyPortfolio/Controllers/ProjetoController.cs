@@ -76,7 +76,7 @@ namespace MyPortfolio.Controllers
                         break;
 
                     case "2":
-                        projetos = projetos.Where(s => s.Categoria.ToUpper().Contains(searchString.ToUpper()));
+                        projetos = projetos.Where(s => s.Tipo.ToUpper().Contains(searchString.ToUpper()));
                         break;
                 }
             }
@@ -108,8 +108,25 @@ namespace MyPortfolio.Controllers
         public async Task<IActionResult> Create(string Titulo,
             string Categoria,
             string desc,
+            string BackEnd,
+            string FrontEnd,
+            string BD,
             List<IFormFile> files)
         {
+            if (!ModelState.IsValid)
+            {
+                var vm = new Projeto
+                {
+                    Tipo = Categoria,
+                    Descricao = desc,
+                    BackEnd = BackEnd,
+                    FrontEnd = FrontEnd,
+                    BancoDados = BD
+                };
+
+                return View(vm);
+            }
+
             var project = new Projeto();
 
             //Caminho raiz para os arquivos
@@ -154,7 +171,10 @@ namespace MyPortfolio.Controllers
 
                 project.ID = Guid.NewGuid().ToString();
                 project.Titulo = Titulo;
-                project.Categoria = Categoria;
+                project.Tipo = Categoria;
+                project.BancoDados = BD;
+                project.BackEnd = BackEnd;
+                project.FrontEnd = FrontEnd;
                 project.Descricao = desc;
                 project.CreatedOn = DateTime.UtcNow;
 
