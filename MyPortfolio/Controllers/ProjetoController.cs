@@ -213,5 +213,22 @@ namespace MyPortfolio.Controllers
             return View(project);
         }
 
+        public async Task<IActionResult> Edit(string Id)
+        {
+            var projeto = await _context.Projetos.FindAsync(Id);
+
+            return View(projeto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Projeto projeto)
+        {
+            projeto.UpdatedOn = DateTime.UtcNow;
+            _context.Projetos.Update(projeto);
+            await _context.SaveChangesAsync();
+
+            return View(projeto);
+        }
+
     }
 }

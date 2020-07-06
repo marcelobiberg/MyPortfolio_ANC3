@@ -1,0 +1,113 @@
+﻿@model Projeto
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-header no-margin-bottom">
+    <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">Projetos</h2>
+    </div>
+</div>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Dashboard">Home</a></li>
+        <li class="breadcrumb-item active">Editar projeto</li>
+    </ul>
+</div>
+<section>
+    <div class="container-fluid">
+        <form asp-action="Edit"
+              asp-controller="Projeto"
+              method="post"
+              class="form-horizontal">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="block">
+                        <div class="title"><strong class="d-block">Informações principais</strong></div>
+                        <div class="block-body">
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Título</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Titulo" value="@Model.Titulo" class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Categoria</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Tipo" value="@Model.Tipo" class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Back-end</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="BackEnd" value="@Model.BackEnd" class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Front-end</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="FrontEnd" value="@Model.FrontEnd" class="form-control form-control-success">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Banco de dados</label>
+                                <div class="col-sm-9">
+                                    <input asp-for="BancoDados" value="@Model.BancoDados" class="form-control form-control-success">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 form-control-label">Descrição</label>
+                                <div class="col-sm-9">
+                                    <textarea asp-for="Descricao" class="form-control" rows="4">@Model.Descricao</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group mt-5">
+                                <button class="btn btn-primary" type="submit" id="submit-all"> Editar </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="card">
+                        <a href="~/img/Uploads/@Model.ImgBackground" data-lightbox="gallery" data-title="Imagem de background">
+                            <img src="~/img/Uploads/@Model.ImgBackground" alt="Imagem de background" class="img-small">
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-title mb-1">Imagem 01</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="card">
+                        <a href="~/img/Uploads/@Model.Img01" data-lightbox="gallery" data-title="Imagem 01">
+                            <img src="~/img/Uploads/@Model.Img01" alt="Imagem 01" class="img-small">
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-title mb-1">Imagem 02</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="card">
+                        <a href="~/img/Uploads/@Model.Img02" data-lightbox="gallery" data-title="Imagem 02">
+                            <img src="~/img/Uploads/@Model.Img02" alt="Imagem 02" class="img-small">
+                        </a>
+                        <div class="card-body">
+                            <h6 class="card-title mb-1">Imagem 03</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section GalleryCss{
+    <link href="~/lib/lightbox2/css/lightbox.min.css" rel="stylesheet" />
+}
+
+@section GalleryJS{
+    <script src="~/lib/lightbox2/js/lightbox.min.js"></script>
+}
