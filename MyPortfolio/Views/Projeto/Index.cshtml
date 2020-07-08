@@ -16,7 +16,8 @@
 </div>
 <div class="container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Dashboard" asp-controller="Admin">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Dashboard" 
+                                       asp-controller="Admin">Home</a></li>
         <li class="breadcrumb-item active">Projetos listar</li>
     </ul>
 </div>
@@ -68,7 +69,7 @@
                                         <td><a asp-action="Details" asp-route-Id="@pro.ID" class="text-muted">@pro.Titulo</a></td>
                                         <td>@pro.Tipo</td>
                                         <td align="right" valign="middle">
-                                            <a asp-controller="Cadastro" asp-action="EditUser" asp-route-Id="@pro.ID" class="btn btn-primary" title="Editar cadastro">
+                                            <a asp-controller="Projeto" asp-action="Edit" asp-route-Id="@pro.ID" class="btn btn-primary" title="Editar Projeto">
                                                 <i class="fas fa-wrench"></i>
                                             </a>
                                             <a href="#" data-id="@pro.ID" class="btn btn-danger" data-toggle="modal" title="Remover cadastro" id="remUser" onclick="ShowModal('@pro.ID');">

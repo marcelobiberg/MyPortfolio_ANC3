@@ -123,7 +123,7 @@ namespace MyPortfolio
             services.AddMemoryCache();
             services.AddSession();
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddScoped<ProfileManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

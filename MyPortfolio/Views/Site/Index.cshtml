@@ -113,13 +113,15 @@
         <div class="container">
             <div class="beker_tm_main_title">
                 <span>Projetos</span>
-                <h3>Projetos desenvolvidos em ASP.NET e ASP.NET Core</h3>
+                <h3>Projetos didáticos desenvolvidos em ASP.NET Core</h3>
             </div>
             <div class="beker_tm_projects_wrap beker_tm_waypoint_effect">
-                @foreach (var p in Model.Projetos)
-                {
-                    <ul class="beker_tm_portfolio_list">
+
+                <ul class="beker_tm_portfolio_list">
+                    @foreach (var p in Model.Projetos)
+                    {
                         <li>
+
                             <div class="list_inner">
                                 <div class="image_wrap">
                                     <img src="~/img/600x600.jpg" alt="Imagem demonstração do projeto" />
@@ -134,8 +136,8 @@
                                    asp-action="ProjetoDetalhes" asp-route-Id="@p.ID"></a>
                             </div>
                         </li>
-                    </ul>
-                }
+                    }
+                </ul>
             </div>
         </div>
     </div>

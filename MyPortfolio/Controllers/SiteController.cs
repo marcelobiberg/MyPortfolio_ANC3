@@ -56,6 +56,11 @@ namespace MyPortfolio.Controllers
         {
             var projeto = await _context.Projetos.FindAsync(Id);
 
+            if (projeto == null)
+            {
+                return NotFound();
+            }
+
             return View(projeto);
         }
     }
