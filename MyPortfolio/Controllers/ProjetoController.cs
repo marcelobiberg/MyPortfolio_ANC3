@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MyPortfolio.Data;
 using MyPortfolio.Helpers;
 using MyPortfolio.Models;
@@ -21,14 +22,18 @@ namespace MyPortfolio.Controllers
     {
         private readonly ApplicationDbContext _context;
         private IWebHostEnvironment _hostingEnvironment;
+        private IConfiguration _configuration;
 
         public ProjetoController(ApplicationDbContext context,
-            IWebHostEnvironment environment)
+            IWebHostEnvironment environment,
+            IConfiguration configuration)
         {
             _context = context;
             _hostingEnvironment = environment;
+            _configuration = configuration;
         }
 
+        #region Index
         public async Task<IActionResult> Index()
         {
             var projetos = from p in _context.Projetos
@@ -98,7 +103,9 @@ namespace MyPortfolio.Controllers
 
             return View(vm);
         }
+        #endregion
 
+        #region Criar
         public IActionResult Create()
         {
             return View();
@@ -188,7 +195,9 @@ namespace MyPortfolio.Controllers
 
             return Ok();
         }
+        #endregion
 
+        #region Detalhes
         public async Task<IActionResult> Details(string Id)
         {
             var project = await _context.Projetos.FindAsync(Id);
@@ -212,23 +221,135 @@ namespace MyPortfolio.Controllers
 
             return View(project);
         }
+        #endregion
 
+        #region Editar
         public async Task<IActionResult> Edit(string Id)
         {
-            var projeto = await _context.Projetos.FindAsync(Id);
+            var projeto = await _context.Projetos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ID == Id);
+
+            if (projeto == null)
+            {
+                return NotFound();
+            }
+
+            //Caminho para o diretório
+            ViewBag.DirPath = _configuration["File:DefaultFolder"];
 
             return View(projeto);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(Projeto projeto)
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProject(string id)
         {
+            var projeto = await _context.Projetos
+                .FirstOrDefaultAsync(p => p.ID == id);
+
             projeto.UpdatedOn = DateTime.UtcNow;
+
+            if (await TryUpdateModelAsync<Projeto>(projeto, "",
+                c => c.Titulo,
+                c => c.Tipo,
+                c => c.BackEnd,
+                c => c.FrontEnd,
+                c => c.BancoDados,
+                c => c.Descricao))
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.AddModelError("", "Erro ao atualizar projeto: " + ex.InnerException + " : " + ex.Message);
+                }
+            }
+            //Caminho para o diretório
+            ViewBag.DirPath = _configuration["File:DefaultFolder"];
+            return View(projeto);
+        }
+
+        /// <summary>
+        /// Atualiza as imagens do projeto via AJAX
+        /// </summary>
+        /// <param name="ProjetoId">ID do projeto</param>
+        /// <param name="Tipo">Tipos: ImgBackground, Img01 e Img02</param>
+        /// <param name="File">Arquivo físico selecionado pelo usuário</param>
+        [HttpPost]
+        public async Task<IActionResult> UpdateImageAjax(UpdateImageAjaxViewModel vm)
+        {
+            if (vm.File == null)
+            {
+                return NotFound();
+            }
+
+            //Busca o projeto
+            var projeto = await _context.Projetos.FindAsync(vm.ProjetoId);
+            //Variáveis do sistema
+            var fileName = string.Empty;
+            var tipoFile = string.Empty;
+            //Caminho raiz para os arquivos
+            var rootPath = _hostingEnvironment.WebRootPath;
+            var defaultPath = _configuration["File:DefaultFolder"];
+            //Caminho para o diretório padrão
+            var folderPath = Path.Combine(rootPath, defaultPath);
+
+            //Inicia instância do objeto FileManager
+            FileManager fm = new FileManager();
+            //Tipo do arquivo
+            // *imgBackground: Imagem de background
+            // *img1: Imagem 01
+            // *img2: Imagem 02
+            switch (vm.Tipo)
+            {
+                case "imgBackground":
+                    //... Polula a variável do sistema com o nome do novo arquivo ( Imagem )
+                    fileName = projeto.ImgBackground;
+                    //... Remove o arquivo ( Imagem ) anterior
+                    fm.RemoveFile(Path.Combine(folderPath, fileName));
+                    //... Resgata a extensão do novo arquivo
+                    tipoFile = Path.GetExtension(vm.File.FileName);
+                    fileName = $@"{Guid.NewGuid()}" + tipoFile;
+                    //... Atualiza o registro
+                    projeto.ImgBackground = fileName;
+                    break;
+                case "img1":
+                    //... Polula a variável do sistema com o nome do novo arquivo ( Imagem )
+                    fileName = projeto.Img01;
+                    //... Remove o arquivo ( Imagem ) anterior
+                    fm.RemoveFile(Path.Combine(folderPath, fileName));
+                    //... Resgata a extensão do novo arquivo
+                    tipoFile = Path.GetExtension(vm.File.FileName);
+                    fileName = $@"{Guid.NewGuid()}" + tipoFile;
+                    //... Atualiza o registro
+                    projeto.Img01 = fileName;
+                    break;
+                case "img2":
+                    //... Polula a variável do sistema com o nome do novo arquivo ( Imagem )
+                    fileName = projeto.Img02;
+                    //... Remove o arquivo ( Imagem ) anterior
+                    fm.RemoveFile(Path.Combine(folderPath, fileName));
+                    //... Resgata a extensão do novo arquivo
+                    tipoFile = Path.GetExtension(vm.File.FileName);
+                    fileName = $@"{Guid.NewGuid()}" + tipoFile;
+                    //... Atualiza o registro
+                    projeto.Img02 = fileName;
+                    break;
+            }
+
+            //Salva a nova imagem no diretório padrão
+            fm.AddFile(Path.Combine(folderPath, fileName), vm.File);
+            //Atualiza o registro
+            projeto.UpdatedOn = DateTime.Now;
             _context.Projetos.Update(projeto);
             await _context.SaveChangesAsync();
-
-            return View(projeto);
+            //Retorna o nome do novo arquivo para atualizar o ajax
+            return Ok(fileName);
         }
-
+        #endregion
     }
 }

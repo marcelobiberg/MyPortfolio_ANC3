@@ -10,7 +10,7 @@
 </div>
 <div class="container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Dashboard">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Projeto Listar</a></li>
         <li class="breadcrumb-item active">Editar projeto</li>
     </ul>
 </div>
@@ -19,6 +19,7 @@
         <form asp-action="Edit"
               asp-controller="Projeto"
               method="post"
+              enctype="multipart/form-data"
               class="form-horizontal">
             <div class="row">
                 <div class="col-lg-6">
@@ -30,30 +31,35 @@
                                 <label class="col-sm-3 form-control-label">Título</label>
                                 <div class="col-sm-9">
                                     <input asp-for="Titulo" value="@Model.Titulo" class="form-control form-control-success">
+                                    <span asp-validation-for="Titulo" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 form-control-label">Categoria</label>
                                 <div class="col-sm-9">
                                     <input asp-for="Tipo" value="@Model.Tipo" class="form-control form-control-success">
+                                    <span asp-validation-for="Tipo" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 form-control-label">Back-end</label>
                                 <div class="col-sm-9">
                                     <input asp-for="BackEnd" value="@Model.BackEnd" class="form-control form-control-success">
+                                    <span asp-validation-for="BackEnd" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 form-control-label">Front-end</label>
                                 <div class="col-sm-9">
                                     <input asp-for="FrontEnd" value="@Model.FrontEnd" class="form-control form-control-success">
+                                    <span asp-validation-for="FrontEnd" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-3 form-control-label">Banco de dados</label>
                                 <div class="col-sm-9">
                                     <input asp-for="BancoDados" value="@Model.BancoDados" class="form-control form-control-success">
+                                    <span asp-validation-for="BancoDados" class="text-danger"></span>
                                 </div>
                             </div>
 
@@ -61,8 +67,10 @@
                                 <label class="col-sm-3 form-control-label">Descrição</label>
                                 <div class="col-sm-9">
                                     <textarea asp-for="Descricao" class="form-control" rows="4">@Model.Descricao</textarea>
+                                    <span asp-validation-for="Descricao" class="text-danger"></span>
                                 </div>
                             </div>
+
                             <div class="form-group mt-5">
                                 <button class="btn btn-primary" type="submit" id="submit-all"> Editar </button>
                             </div>
@@ -71,34 +79,74 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="card">
-                        <a href="~/img/Uploads/@Model.ImgBackground" data-lightbox="gallery" data-title="Imagem de background">
-                            <img src="~/img/Uploads/@Model.ImgBackground" alt="Imagem de background" class="img-small">
+                        <a href="/@ViewData["DirPath"]/@Model.ImgBackground" data-lightbox="gallery" data-title="Imagem de background" id="ImgBackground1">
+                            <img src="/@ViewData["DirPath"]/@Model.ImgBackground" alt="Imagem de background" class="img-small" id="ImgBackground2">
                         </a>
                         <div class="card-body">
-                            <h6 class="card-title mb-1">Imagem 01</h6>
+                            <h6 class="card-title mb-1">
+                                Imagem 01
+                                <label for="imgBackground" title="Alterar imagem">
+                                    <i class="fa fa-wrench w-75 cursor-pointer ml-2" id="imageEditIcon" aria-hidden="true"></i>
+                                </label>
+
+                                <input id="imgBackground"
+                                       class="d-none"
+                                       type="file"
+                                       accept="image/x-png,image/jpeg"
+                                       onchange="uploadFiles('imgBackground','@Model.ID');" />
+                            </h6>
+                            <input asp-for="ImgBackground"
+                                   type="hidden" />
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="card">
-                        <a href="~/img/Uploads/@Model.Img01" data-lightbox="gallery" data-title="Imagem 01">
-                            <img src="~/img/Uploads/@Model.Img01" alt="Imagem 01" class="img-small">
+                        <a href="/@ViewData["DirPath"]/@Model.Img01" data-lightbox="gallery" data-title="Imagem 01" id="img11">
+                            <img src="/@ViewData["DirPath"]/@Model.Img01" alt="Imagem 01" class="img-small" id="img12">
                         </a>
                         <div class="card-body">
-                            <h6 class="card-title mb-1">Imagem 02</h6>
+                            <h6 class="card-title mb-1">
+                                Imagem 02
+                                <label for="img1" title="Alterar imagem">
+                                    <i class="fa fa-wrench w-75 cursor-pointer ml-2" id="imageEditIcon" aria-hidden="true"></i>
+                                </label>
+
+                                <input id="img1"
+                                       class="d-none"
+                                       type="file"
+                                       accept="image/x-png,image/jpeg"
+                                       onchange="uploadFiles('img1','@Model.ID');" />
+                            </h6>
+                            <input asp-for="Img01"
+                                   type="hidden" />
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="card">
-                        <a href="~/img/Uploads/@Model.Img02" data-lightbox="gallery" data-title="Imagem 02">
-                            <img src="~/img/Uploads/@Model.Img02" alt="Imagem 02" class="img-small">
+                        <a href="/@ViewData["DirPath"]/@Model.Img02" data-lightbox="gallery" data-title="Imagem 02" id="img21">
+                            <img src="/@ViewData["DirPath"]/@Model.Img02" alt="Imagem 02" class="img-small" id="img22">
                         </a>
                         <div class="card-body">
-                            <h6 class="card-title mb-1">Imagem 03</h6>
+                            <h6 class="card-title mb-1">
+                                Imagem 03
+                                <label for="img2" title="Alterar imagem">
+                                    <i class="fa fa-wrench w-75 cursor-pointer ml-2" id="imageEditIcon" aria-hidden="true"></i>
+                                </label>
+
+                                <input id="img2"
+                                       class="d-none"
+                                       type="file"
+                                       accept="image/x-png,image/jpeg"
+                                       onchange="uploadFiles('img2', '@Model.ID'); validateFileType();" />
+                            </h6>
+                            <input asp-for="Img02"
+                                   type="hidden" />
                         </div>
                     </div>
                 </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             </div>
         </form>
     </div>
@@ -110,4 +158,74 @@
 
 @section GalleryJS{
     <script src="~/lib/lightbox2/js/lightbox.min.js"></script>
+    <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
+    <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
+
+    <script>
+        function uploadFiles(inputId, projetoId) {
+            var input = document.getElementById(inputId);
+            var file = input.files;
+            var formData = new FormData();
+            formData.append("file", file[0]);
+            formData.append("projetoId", projetoId);
+            formData.append("tipo", inputId);
+
+            Messenger.options = {
+                extraClasses: "messenger-fixed messenger-on-right messenger-on-top",
+                theme: "flat"
+            };
+
+            var idxDot = input.value.lastIndexOf(".") + 1;
+            var extFile = input.value.substr(idxDot, input.value.length).toLowerCase();
+            if (!(extFile == "jpg" || extFile == "jpeg" || extFile == "png")) {
+                Messenger().post({
+                    message: "Somente imagens no formato jpg ou png!",
+                    type: "error"
+                })
+                return;
+            }
+
+            $.ajax(
+                {
+                    url: "/Projeto/UpdateImageAjax",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    //O param 'data' retorna o identificador da imagem
+                    success: function (imgId) {
+                        //... busca o diretório padrão em appsettings.json
+                        let defaultPath = '/@ViewBag.DirPath';
+                        var fullPath = defaultPath + imgId;
+
+                        switch (inputId) {
+                            case 'imgBackground':
+                                document.getElementById('ImgBackground1').href = fullPath;
+                                document.getElementById('ImgBackground2').src = fullPath;
+                                break;
+                            case 'img1':
+                                document.getElementById('img11').href = fullPath;
+                                document.getElementById('img12').src = fullPath;
+                                break;
+                            case 'img2':
+                                document.getElementById('img21').href = fullPath;
+                                document.getElementById('img22').src = fullPath;
+                                break;
+                        }
+
+                        Messenger().post({
+                            message: "Imagem atualizada!",
+                            type: "success"
+                        })
+                    }
+                }
+            );
+        }
+
+    </script>
 }
+
