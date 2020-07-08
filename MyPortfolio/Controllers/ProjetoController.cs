@@ -23,14 +23,17 @@ namespace MyPortfolio.Controllers
         private readonly ApplicationDbContext _context;
         private IWebHostEnvironment _hostingEnvironment;
         private IConfiguration _configuration;
+        private readonly FileManager _fileManager;
 
         public ProjetoController(ApplicationDbContext context,
             IWebHostEnvironment environment,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            FileManager fileManager)
         {
             _context = context;
             _hostingEnvironment = environment;
             _configuration = configuration;
+            _fileManager = fileManager;
         }
 
         #region Index
@@ -298,8 +301,6 @@ namespace MyPortfolio.Controllers
             //Caminho para o diretório padrão
             var folderPath = Path.Combine(rootPath, defaultPath);
 
-            //Inicia instância do objeto FileManager
-            FileManager fm = new FileManager();
             //Tipo do arquivo
             // *imgBackground: Imagem de background
             // *img1: Imagem 01
@@ -310,7 +311,7 @@ namespace MyPortfolio.Controllers
                     //... Polula a variável do sistema com o nome do novo arquivo ( Imagem )
                     fileName = projeto.ImgBackground;
                     //... Remove o arquivo ( Imagem ) anterior
-                    fm.RemoveFile(Path.Combine(folderPath, fileName));
+                    _fileManager.RemoveFile(Path.Combine(folderPath, fileName));
                     //... Resgata a extensão do novo arquivo
                     tipoFile = Path.GetExtension(vm.File.FileName);
                     fileName = $@"{Guid.NewGuid()}" + tipoFile;
@@ -321,7 +322,7 @@ namespace MyPortfolio.Controllers
                     //... Polula a variável do sistema com o nome do novo arquivo ( Imagem )
                     fileName = projeto.Img01;
                     //... Remove o arquivo ( Imagem ) anterior
-                    fm.RemoveFile(Path.Combine(folderPath, fileName));
+                    _fileManager.RemoveFile(Path.Combine(folderPath, fileName));
                     //... Resgata a extensão do novo arquivo
                     tipoFile = Path.GetExtension(vm.File.FileName);
                     fileName = $@"{Guid.NewGuid()}" + tipoFile;
@@ -332,7 +333,7 @@ namespace MyPortfolio.Controllers
                     //... Polula a variável do sistema com o nome do novo arquivo ( Imagem )
                     fileName = projeto.Img02;
                     //... Remove o arquivo ( Imagem ) anterior
-                    fm.RemoveFile(Path.Combine(folderPath, fileName));
+                    _fileManager.RemoveFile(Path.Combine(folderPath, fileName));
                     //... Resgata a extensão do novo arquivo
                     tipoFile = Path.GetExtension(vm.File.FileName);
                     fileName = $@"{Guid.NewGuid()}" + tipoFile;
@@ -342,13 +343,60 @@ namespace MyPortfolio.Controllers
             }
 
             //Salva a nova imagem no diretório padrão
-            fm.AddFile(Path.Combine(folderPath, fileName), vm.File);
+            _fileManager.AddFile(Path.Combine(folderPath, fileName), vm.File);
             //Atualiza o registro
             projeto.UpdatedOn = DateTime.Now;
             _context.Projetos.Update(projeto);
             await _context.SaveChangesAsync();
             //Retorna o nome do novo arquivo para atualizar o ajax
             return Ok(fileName);
+        }
+        #endregion
+
+        #region Remove
+        [HttpGet]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var p = await _context.Projetos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.ID == Id);
+
+            return View(p);
+        }
+
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteProject(string Id)
+        {
+            var p = await _context.Projetos
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p => p.ID == Id);
+
+            try
+            {
+                //Remove o projeto do DB
+                _context.Entry(p).State = EntityState.Deleted;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro: " + ex.Message + " InnerEx" + ex.InnerException);
+            }
+
+            //Caminho raiz para os arquivos
+            var rootPath = _hostingEnvironment.WebRootPath;
+            var defaultPath = _configuration["File:DefaultFolder"];
+            //Caminho para o diretório padrão
+            var folderPath = Path.Combine(rootPath, defaultPath);
+
+            //Remove as arquivos relacionados com o projeto
+            _fileManager.RemoveFile(Path.Combine(folderPath, p.ImgBackground));
+            _fileManager.RemoveFile(Path.Combine(folderPath, p.Img01));
+            _fileManager.RemoveFile(Path.Combine(folderPath, p.Img02));
+            
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
         #endregion
     }
