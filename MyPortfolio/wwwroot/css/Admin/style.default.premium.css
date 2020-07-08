@@ -171,7 +171,7 @@ pre {
 }
 
     .breadcrumb a {
-        color: #DB6574;
+        color: #3c8dbc;
         text-decoration: none !important
     }
 
@@ -247,7 +247,7 @@ pre {
     }
 
         .dropdown-menu a:hover {
-            background: #DB6574;
+            background: #3c8dbc;
             color: #fff
         }
 
@@ -322,7 +322,7 @@ i[class*='icon-'] {
 
             .megamenu ul a:hover {
                 background: none;
-                color: #DB6574 !important
+                color: #3c8dbc !important
             }
 
     .megamenu .megamenu-buttons {
@@ -795,7 +795,7 @@ nav#sidebar {
             }
 
                 nav#sidebar li a:hover i {
-                    color: #DB6574
+                    color: #3c8dbc
                 }
 
             nav#sidebar li a i {
@@ -817,7 +817,7 @@ nav#sidebar {
             }
 
                 nav#sidebar li li a:hover i {
-                    color: #DB6574
+                    color: #3c8dbc
                 }
 
         nav#sidebar li::before {
@@ -833,7 +833,7 @@ nav#sidebar {
         }
 
         nav#sidebar li.active::before {
-            background: #DB6574
+            background: #3c8dbc
         }
 
         nav#sidebar li.active > a {
@@ -842,7 +842,7 @@ nav#sidebar {
         }
 
         nav#sidebar li.active i {
-            color: #DB6574
+            color: #3c8dbc
         }
 
         nav#sidebar li li.active > a {
@@ -1592,7 +1592,7 @@ nav#sidebar {
 
             .login-page .form-holder .form a.forgot-pass, .login-page .form-holder .form a.signup {
                 font-size: 0.9rem;
-                color: #DB6574
+                color: #3c8dbc
             }
 
             .login-page .form-holder .form small {
@@ -1664,10 +1664,10 @@ nav#sidebar {
     .form-control:focus {
         color: #979a9f;
         background-color: rgba(0,0,0,0);
-        border-color: #DB6574;
+        border-color: #3c8dbc;
         outline: none;
-        -webkit-box-shadow: 0 0 0 .2rem rgba(219,101,116,0.25);
-        box-shadow: 0 0 0 .2rem rgba(219,101,116,0.25)
+        -webkit-box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.25);
+        box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.25)
     }
 
     .form-control:focus {
@@ -1719,7 +1719,7 @@ button, input[type='submit'] {
 }
 
     .custom-select:focus {
-        border-color: #DB6574;
+        border-color: #3c8dbc;
         outline: 0;
         -webkit-box-shadow: none;
         box-shadow: none
@@ -1787,7 +1787,7 @@ button, input[type='submit'] {
     }
 
         .input-group .dropdown-menu a:hover {
-            color: #DB6574;
+            color: #3c8dbc;
             background: none !important
         }
 
@@ -1846,7 +1846,7 @@ form label {
     }
 
     .checkbox-template:checked::before, .radio-template:checked::before {
-        background: #DB6574
+        background: #3c8dbc
     }
 
     .checkbox-template:checked::after, .radio-template:checked::after {
@@ -1889,7 +1889,7 @@ input.input-material {
     }
 
     input.input-material:focus {
-        border-color: #DB6574
+        border-color: #3c8dbc
     }
 
     input.input-material ~ label {
@@ -1906,7 +1906,7 @@ input.input-material {
         input.input-material ~ label.active {
             font-size: 0.85rem;
             top: -10px;
-            color: #DB6574
+            color: #3c8dbc
         }
 
         input.input-material ~ label.is-invalid ~ label {
@@ -1962,7 +1962,7 @@ input.input-material {
 }
 
 .noUi-connect {
-    background: #DB6574
+    background: #3c8dbc
 }
 
 .datepicker-dropdown.dropdown-menu {
@@ -1981,8 +1981,8 @@ input.input-material {
     }
 
         .datepicker-dropdown.dropdown-menu td.active, .datepicker-dropdown.dropdown-menu td:active {
-            background-color: #DB6574 !important;
-            border-color: #DB6574 !important
+            background-color: #3c8dbc !important;
+            border-color: #3c8dbc !important
         }
 
     .datepicker-dropdown.dropdown-menu:before, .datepicker-dropdown.dropdown-menu:after {
@@ -2017,7 +2017,7 @@ input.input-material {
 
     .bootstrap-select .dropdown-menu li a:hover {
         background: #34373d;
-        color: #DB6574
+        color: #3c8dbc
     }
 
 .bootstrap-select .dropdown-toggle:focus {
@@ -2029,7 +2029,7 @@ input.input-material {
 }
 
 .bootstrap-tagsinput .label-info {
-    background-color: #DB6574;
+    background-color: #3c8dbc;
     display: inline-block;
     padding: 2px 10px;
     border-radius: 3px;
@@ -2129,7 +2129,7 @@ input.input-material {
         cursor: pointer;
         color: #fff;
         text-decoration: none;
-        background-color: #DB6574
+        background-color: #3c8dbc
     }
 
     .ms-container .ms-selectable li.disabled, .ms-container .ms-selection li.disabled {
@@ -3174,9 +3174,9 @@ ul.messenger-theme-flat {
 }
 
 .fc-event, .fc-event-dot {
-    background-color: #DB6574;
+    background-color: #3c8dbc;
     color: #fff !important;
-    border-color: #DB6574
+    border-color: #3c8dbc
 }
 
 .fc .alert-info {
@@ -3268,7 +3268,7 @@ ul.messenger-theme-flat {
     }
 
         .infobox h3 a:focus, .infobox h3 a:hover {
-            color: #DB6574
+            color: #3c8dbc
         }
 
 .infobox .image {
@@ -3290,7 +3290,7 @@ ul.messenger-theme-flat {
 .sk-rotating-plane {
     width: 40px;
     height: 40px;
-    background-color: #DB6574;
+    background-color: #3c8dbc;
     margin: 0;
     -webkit-animation: sk-rotatePlane 1.2s infinite ease-in-out;
     animation: sk-rotatePlane 1.2s infinite ease-in-out
@@ -3341,7 +3341,7 @@ ul.messenger-theme-flat {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: #DB6574;
+        background-color: #3c8dbc;
         opacity: 0.6;
         position: absolute;
         top: 0;
@@ -3388,7 +3388,7 @@ ul.messenger-theme-flat {
 }
 
     .sk-wave .sk-rect {
-        background-color: #DB6574;
+        background-color: #3c8dbc;
         height: 100%;
         width: 6px;
         display: inline-block;
@@ -3453,7 +3453,7 @@ ul.messenger-theme-flat {
 }
 
     .sk-wandering-cubes .sk-cube {
-        background-color: #DB6574;
+        background-color: #3c8dbc;
         width: 10px;
         height: 10px;
         position: absolute;
@@ -3536,7 +3536,7 @@ ul.messenger-theme-flat {
     width: 40px;
     height: 40px;
     margin: 0;
-    background-color: #DB6574;
+    background-color: #3c8dbc;
     border-radius: 100%;
     -webkit-animation: sk-pulseScaleOut 1.0s infinite ease-in-out;
     animation: sk-pulseScaleOut 1.0s infinite ease-in-out
@@ -3584,7 +3584,7 @@ ul.messenger-theme-flat {
         display: inline-block;
         position: absolute;
         top: 0;
-        background-color: #DB6574;
+        background-color: #3c8dbc;
         border-radius: 100%;
         -webkit-animation: sk-chasingDotsBounce 2s infinite ease-in-out;
         animation: sk-chasingDotsBounce 2s infinite ease-in-out
@@ -3644,7 +3644,7 @@ ul.messenger-theme-flat {
     .sk-three-bounce .sk-child {
         width: 20px;
         height: 20px;
-        background-color: #DB6574;
+        background-color: #3c8dbc;
         border-radius: 100%;
         display: inline-block;
         -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
@@ -3706,7 +3706,7 @@ ul.messenger-theme-flat {
             margin: 0 auto;
             width: 15%;
             height: 15%;
-            background-color: #DB6574;
+            background-color: #3c8dbc;
             border-radius: 100%;
             -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
             animation: sk-circleBounceDelay 1.2s infinite ease-in-out both
@@ -3855,7 +3855,7 @@ ul.messenger-theme-flat {
     .sk-cube-grid .sk-cube {
         width: 33.33%;
         height: 33.33%;
-        background-color: #DB6574;
+        background-color: #3c8dbc;
         float: left;
         -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
         animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out
@@ -3951,7 +3951,7 @@ ul.messenger-theme-flat {
             margin: 0 auto;
             width: 15%;
             height: 15%;
-            background-color: #DB6574;
+            background-color: #3c8dbc;
             border-radius: 100%;
             -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
             animation: sk-circleFadeDelay 1.2s infinite ease-in-out both
@@ -4112,7 +4112,7 @@ ul.messenger-theme-flat {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #DB6574;
+            background-color: #3c8dbc;
             -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
             animation: sk-foldCubeAngle 2.4s infinite linear both;
             -webkit-transform-origin: 100% 100%;
@@ -4317,8 +4317,8 @@ ul.messenger-theme-flat {
 
     .btn:focus, .btn.focus {
         outline: 0;
-        -webkit-box-shadow: 0 0 0 .2rem rgba(219,101,116,0.25);
-        box-shadow: 0 0 0 .2rem rgba(219,101,116,0.25)
+        -webkit-box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.25);
+        box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.25)
     }
 
     .btn.disabled, .btn:disabled {
@@ -4330,37 +4330,37 @@ ul.messenger-theme-flat {
     }
 
 .btn-primary {
-    color: color-yiq(#DB6574);
-    background-color: #DB6574;
-    border-color: #DB6574
+    color: color-yiq(#3c8dbc);
+    background-color: #3c8dbc;
+    border-color: #3c8dbc
 }
 
     .btn-primary:hover {
-        color: color-yiq(#d44658);
-        background-color: #d44658;
-        border-color: #d13c4f
+        color: color-yiq(#1c70a0);
+        background-color: #1c70a0;
+        border-color: #0c486b
     }
 
     .btn-primary:focus, .btn-primary.focus {
         -webkit-box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5);
-        box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5)
+        box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.5)
     }
 
     .btn-primary.disabled, .btn-primary:disabled {
-        color: color-yiq(#DB6574);
-        background-color: #DB6574;
-        border-color: #DB6574
+        color: color-yiq(#3c8dbc);
+        background-color: #3c8dbc;
+        border-color: #3c8dbc
     }
 
     .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
-        color: color-yiq(#d13c4f);
-        background-color: #d13c4f;
-        border-color: #cf3145
+        color: color-yiq(#0c486b);
+        background-color: #0c486b;
+        border-color: #0c486b
     }
 
         .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
-            -webkit-box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5);
-            box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5)
+            -webkit-box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.5);
+            box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.5)
         }
 
 .btn-secondary {
@@ -4602,36 +4602,36 @@ ul.messenger-theme-flat {
         }
 
 .btn-outline-primary {
-    color: #DB6574;
+    color: #3c8dbc;
     background-color: transparent;
     background-image: none;
-    border-color: #DB6574
+    border-color: #3c8dbc
 }
 
     .btn-outline-primary:hover {
         color: #fff;
-        background-color: #DB6574;
-        border-color: #DB6574
+        background-color: #3c8dbc;
+        border-color: #3c8dbc
     }
 
     .btn-outline-primary:focus, .btn-outline-primary.focus {
-        -webkit-box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5);
-        box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5)
+        -webkit-box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.5);
+        box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.5)
     }
 
     .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-        color: #DB6574;
+        color: #3c8dbc;
         background-color: transparent
     }
 
     .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active, .show > .btn-outline-primary.dropdown-toggle {
-        color: color-yiq(#DB6574);
-        background-color: #DB6574;
-        border-color: #DB6574
+        color: color-yiq(#3c8dbc);
+        background-color: #3c8dbc;
+        border-color: #3c8dbc
     }
 
         .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-primary.dropdown-toggle:focus {
-            -webkit-box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5);
+            -webkit-box-shadow: 0 0 0 .2rem rgba(12, 72, 107,0.5);
             box-shadow: 0 0 0 .2rem rgba(219,101,116,0.5)
         }
 
@@ -4897,12 +4897,12 @@ body {
 }
 
 a {
-    color: #DB6574;
+    color: #3c8dbc;
     text-decoration: none
 }
 
     a:focus, a:hover {
-        color: #c52e41;
+        color: #3c8dbc;
         text-decoration: underline
     }
 
@@ -4985,7 +4985,7 @@ mark, .mark {
     padding: .5rem 1rem;
     margin-bottom: 2rem;
     font-size: 1.25rem;
-    border-left: 5px solid #DB6574
+    border-left: 5px solid #3c8dbc
 }
 
 .blockquote-footer {
@@ -4997,11 +4997,11 @@ mark, .mark {
     }
 
 .text-primary {
-    color: #DB6574 !important
+    color: #3c8dbc !important
 }
 
 a.text-primary:focus, a.text-primary:hover {
-    color: #d13c4f !important
+    color: #0c486b !important
 }
 
 .page-item:first-child .page-link {
@@ -5016,8 +5016,8 @@ a.text-primary:focus, a.text-primary:hover {
 
 .page-item.active .page-link {
     color: #fff;
-    background-color: #DB6574;
-    border-color: #DB6574
+    background-color: #3c8dbc;
+    border-color: #3c8dbc
 }
 
 .page-item.disabled .page-link {
@@ -5083,11 +5083,11 @@ a.text-primary:focus, a.text-primary:hover {
 }
 
 .bg-primary {
-    background-color: #DB6574 !important
+    background-color: #3c8dbc !important
 }
 
 a.bg-primary:focus, a.bg-primary:hover {
-    background-color: #d13c4f !important
+    background-color: #0c486b !important
 }
 
 .bg-secondary {
@@ -5147,7 +5147,7 @@ a.bg-dark:focus, a.bg-dark:hover {
 }
 
 .border-primary {
-    border-color: #DB6574 !important
+    border-color: #3c8dbc !important
 }
 
 .border-secondary {
@@ -5179,11 +5179,11 @@ a.bg-dark:focus, a.bg-dark:hover {
 }
 
 .text-primary {
-    color: #DB6574 !important
+    color: #3c8dbc !important
 }
 
 a.text-primary:focus, a.text-primary:hover {
-    color: #d13c4f !important
+    color: #0c486b !important
 }
 
 .text-secondary {
@@ -5243,14 +5243,14 @@ a.text-dark:focus, a.text-dark:hover {
 }
 
 .badge-primary {
-    color: color-yiq(#DB6574);
-    background-color: #DB6574
+    color: color-yiq(#3c8dbc);
+    background-color: #3c8dbc
 }
 
     .badge-primary[href]:focus, .badge-primary[href]:hover {
-        color: color-yiq(#DB6574);
+        color: color-yiq(#3c8dbc);
         text-decoration: none;
-        background-color: #d13c4f
+        background-color: #0c486b
     }
 
 .badge-secondary {
@@ -5333,7 +5333,7 @@ a.text-dark:focus, a.text-dark:hover {
 code {
     padding: .2rem .4rem;
     font-size: 90%;
-    color: #DB6574;
+    color: #3c8dbc;
     background-color: #22252a;
     border-radius: .25rem
 }
@@ -5390,7 +5390,7 @@ pre code {
 
     .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
         color: #fff;
-        background-color: #DB6574
+        background-color: #3c8dbc
     }
 
 .card {
