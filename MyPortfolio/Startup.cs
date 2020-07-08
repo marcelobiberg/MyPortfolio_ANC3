@@ -126,6 +126,7 @@ namespace MyPortfolio
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddScoped<ProfileManager>();
+            services.AddScoped<FileManager>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

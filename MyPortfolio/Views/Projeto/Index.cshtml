@@ -16,8 +16,10 @@
 </div>
 <div class="container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a asp-action="Dashboard" 
-                                       asp-controller="Admin">Home</a></li>
+        <li class="breadcrumb-item">
+            <a asp-action="Dashboard"
+               asp-controller="Admin">Home</a>
+        </li>
         <li class="breadcrumb-item active">Projetos listar</li>
     </ul>
 </div>
@@ -69,10 +71,18 @@
                                         <td><a asp-action="Details" asp-route-Id="@pro.ID" class="text-muted">@pro.Titulo</a></td>
                                         <td>@pro.Tipo</td>
                                         <td align="right" valign="middle">
-                                            <a asp-controller="Projeto" asp-action="Edit" asp-route-Id="@pro.ID" class="btn btn-warning" title="Editar Projeto">
+                                            <a asp-controller="Projeto"
+                                               asp-action="Edit"
+                                               asp-route-Id="@pro.ID"
+                                               class="btn btn-warning"
+                                               title="Editar Projeto">
                                                 <i class="fa fa-wrench"></i>
                                             </a>
-                                            <a href="#" data-id="@pro.ID" class="btn btn-danger" data-toggle="modal" title="Remover cadastro" id="remUser" onclick="ShowModal('@pro.ID');">
+                                            <a asp-controller="Projeto"
+                                               asp-action="Delete"
+                                               asp-route-Id="@pro.ID"
+                                               class="btn btn-danger" 
+                                               title="Remover cadastro">
                                                 <i class="fa fas fa-trash"></i>
                                             </a>
                                         </td>

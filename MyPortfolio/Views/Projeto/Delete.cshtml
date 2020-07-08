@@ -1,0 +1,47 @@
+﻿@model Projeto
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-header no-margin-bottom">
+    <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">Projetos</h2>
+    </div>
+</div>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Projeto Listar</a></li>
+        <li class="breadcrumb-item active">Excluir projeto</li>
+    </ul>
+</div>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="block">
+                    <div class="title">
+                    <strong class="d-block text-center">
+                        <i class="fa fa-warning fa-2x text-center mr-2"></i>Deseja excluir o projeto: '@Model.Titulo'</strong>
+                    </div>
+                    <div class="block-body">
+                        <form asp-action="Delete"
+                              asp-controller="Projeto"
+                              method="post"
+                              class="form-horizontal">
+                            <div class="block text-center">
+                                @*<a class="btn btn-danger"
+                                   asp-action="Delete"
+                                   asp-route-Id="@Model.ID">Sim</a>*@
+
+                                <button class="btn btn-danger" type="submit">Sim</button>
+
+                                <a class="btn btn-light"
+                                   asp-action="Index">Não</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
