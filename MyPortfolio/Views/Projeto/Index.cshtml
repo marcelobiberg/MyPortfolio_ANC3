@@ -49,7 +49,7 @@
 
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <button asp-action="Index" class="btn btn-default">Exibir todos</button>
+                                <button asp-action="Index" class="btn btn-light">Exibir todos</button>
                             </div>
                         </div>
                     </div>
@@ -69,11 +69,11 @@
                                         <td><a asp-action="Details" asp-route-Id="@pro.ID" class="text-muted">@pro.Titulo</a></td>
                                         <td>@pro.Tipo</td>
                                         <td align="right" valign="middle">
-                                            <a asp-controller="Projeto" asp-action="Edit" asp-route-Id="@pro.ID" class="btn btn-primary" title="Editar Projeto">
-                                                <i class="fas fa-wrench"></i>
+                                            <a asp-controller="Projeto" asp-action="Edit" asp-route-Id="@pro.ID" class="btn btn-warning" title="Editar Projeto">
+                                                <i class="fa fa-wrench"></i>
                                             </a>
                                             <a href="#" data-id="@pro.ID" class="btn btn-danger" data-toggle="modal" title="Remover cadastro" id="remUser" onclick="ShowModal('@pro.ID');">
-                                                <i class="fas fas fa-trash"></i>
+                                                <i class="fa fas fa-trash"></i>
                                             </a>
                                         </td>
                                     </tr>
