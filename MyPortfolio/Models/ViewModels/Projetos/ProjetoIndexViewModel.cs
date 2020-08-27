@@ -3,7 +3,7 @@ using MyPortfolio.Helpers;
 using MyPortfolio.Models;
 using System.Collections.Generic;
 
-namespace MyPortfolio.ViewModels
+namespace MyPortfolio.Models.ViewModels.Projetos
 {
     public class ProjetoIndexViewModel
     {

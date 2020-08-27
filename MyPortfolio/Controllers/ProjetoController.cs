@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MyPortfolio.Data;
 using MyPortfolio.Helpers;
 using MyPortfolio.Models;
+using MyPortfolio.Models.ViewModels.Projetos;
 using MyPortfolio.ViewModels;
 
 namespace MyPortfolio.Controllers
@@ -111,82 +113,59 @@ namespace MyPortfolio.Controllers
         #region Criar
         public IActionResult Create()
         {
-            return View();
+            var vm = new ProjetoCreateEditViewModel
+            {
+                FEList = GetFE().ToList(),
+                BEList = GetBE().ToList(),
+                DBList = GetDatabases().ToList(),
+                CatList = GetCategories().ToList()
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string Titulo,
-            string Categoria,
-            string desc,
-            string BackEnd,
-            string FrontEnd,
-            string BD,
-            List<IFormFile> files)
+        public async Task<IActionResult> Create(ProjetoCreateEditViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                var vm = new Projeto
-                {
-                    Tipo = Categoria,
-                    Descricao = desc,
-                    BackEnd = BackEnd,
-                    FrontEnd = FrontEnd,
-                    BancoDados = BD
-                };
-
+                vm.FEList = GetFE().ToList();
+                vm.BEList = GetBE().ToList();
+                vm.DBList = GetDatabases().ToList();
+                vm.CatList = GetCategories().ToList();
                 return View(vm);
             }
-
-            var project = new Projeto();
 
             //Caminho raiz para os arquivos
             var rootPath = _hostingEnvironment.WebRootPath;
             //Caminho para o diretório padrão
-            var pathToDir = Path.Combine(rootPath, "img/Uploads");
+            var pathToDir = rootPath + _configuration["File:DefaultFolder"];
+            //Nome único para o arquivo e concat da extensão 
+            var imgBg = $@"{Guid.NewGuid()}" + Path.GetExtension(vm.ImgBackground.FileName);
+            var img01 = $@"{Guid.NewGuid()}" + Path.GetExtension(vm.Img01.FileName);
+            var img02 = $@"{Guid.NewGuid()}" + Path.GetExtension(vm.Img02.FileName);
+
+            //. . . Salva os arquivos fisicamente
+            _fileManager.AddFile(Path.Combine(pathToDir, imgBg), vm.ImgBackground);
+            _fileManager.AddFile(Path.Combine(pathToDir, img01), vm.ImgBackground);
+            _fileManager.AddFile(Path.Combine(pathToDir, img02), vm.ImgBackground);
 
             try
             {
-                int count = 0;
-                foreach (var file in files)
+                var project = new Projeto
                 {
-                    if (file.Length > 0)
-                    {
-                        count++;
-                        //Resgata a extensão do arquivo
-                        var tipoFile = Path.GetExtension(file.FileName);
-                        //Nome único para o arquivo
-                        var fileName = $@"{Guid.NewGuid()}" + tipoFile;
-
-                        var filePath = Path.Combine(pathToDir, fileName);
-
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await file.CopyToAsync(fileStream);
-                        }
-
-                        switch (count)
-                        {
-                            case 1:
-                                project.ImgBackground = fileName;
-                                break;
-                            case 2:
-                                project.Img01 = fileName;
-                                break;
-                            case 3:
-                                project.Img02 = fileName;
-                                break;
-                        }
-                    }
-                }
-
-                project.ID = Guid.NewGuid().ToString();
-                project.Titulo = Titulo;
-                project.Tipo = Categoria;
-                project.BancoDados = BD;
-                project.BackEnd = BackEnd;
-                project.FrontEnd = FrontEnd;
-                project.Descricao = desc;
-                project.CreatedOn = DateTime.UtcNow;
+                    ID = Guid.NewGuid().ToString(),
+                    Titulo = vm.Titulo,
+                    Tipo = vm.Tipo,
+                    BancoDados = vm.BancoDados,
+                    BackEnd = vm.BackEnd,
+                    FrontEnd = vm.FrontEnd,
+                    Descricao = vm.Descricao,
+                    ImgBackground = imgBg,
+                    Img01 = img01,
+                    Img02 = img02,
+                    CreatedOn = DateTime.Now
+                };
 
                 await _context.Projetos.AddAsync(project);
                 await _context.SaveChangesAsync();
@@ -196,7 +175,7 @@ namespace MyPortfolio.Controllers
                 throw new Exception("Erro: " + ex.Message + " / " + ex.InnerException);
             }
 
-            return Ok();
+            return RedirectToAction("Index");
         }
         #endregion
 
@@ -207,19 +186,6 @@ namespace MyPortfolio.Controllers
             if (project == null)
             {
                 return NotFound();
-            }
-
-            if (project.ImgBackground == null)
-            {
-                project.ImgBackground = "No-Img-Default.jpg";
-            }
-            if (project.Img01 == null)
-            {
-                project.Img01 = "No-Img-Default.jpg";
-            }
-            if (project.Img02 == null)
-            {
-                project.Img02 = "No-Img-Default.jpg";
             }
 
             return View(project);
@@ -233,15 +199,30 @@ namespace MyPortfolio.Controllers
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.ID == Id);
 
+            var vm = new ProjetoCreateEditViewModel
+            {
+                ID = Id,
+                Titulo = projeto.Titulo,
+                Tipo = projeto.Tipo,
+                BancoDados = projeto.BancoDados,
+                BackEnd = projeto.BackEnd,
+                FrontEnd = projeto.FrontEnd,
+                Descricao = projeto.Descricao,
+                BackgroundPath = $@"{_configuration["File:DefaultFolder"]}" + projeto.ImgBackground,
+                Img01Path = $@"{_configuration["File:DefaultFolder"]}" + projeto.Img01,
+                Img02Path = $@"{_configuration["File:DefaultFolder"]}" + projeto.Img02,
+                FEList = GetFE().ToList(),
+                BEList = GetBE().ToList(),
+                DBList = GetDatabases().ToList(),
+                CatList = GetCategories().ToList()
+            };
+
             if (projeto == null)
             {
                 return NotFound();
             }
 
-            //Caminho para o diretório
-            ViewBag.DirPath = _configuration["File:DefaultFolder"];
-
-            return View(projeto);
+            return View(vm);
         }
 
         [HttpPost, ActionName("Edit")]
@@ -271,8 +252,7 @@ namespace MyPortfolio.Controllers
                     ModelState.AddModelError("", "Erro ao atualizar projeto: " + ex.InnerException + " : " + ex.Message);
                 }
             }
-            //Caminho para o diretório
-            ViewBag.DirPath = _configuration["File:DefaultFolder"];
+
             return View(projeto);
         }
 
@@ -294,12 +274,12 @@ namespace MyPortfolio.Controllers
             var projeto = await _context.Projetos.FindAsync(vm.ProjetoId);
             //Variáveis do sistema
             var fileName = string.Empty;
+            var fullPath = string.Empty;
             var tipoFile = string.Empty;
             //Caminho raiz para os arquivos
             var rootPath = _hostingEnvironment.WebRootPath;
             var defaultPath = _configuration["File:DefaultFolder"];
-            //Caminho para o diretório padrão
-            var folderPath = Path.Combine(rootPath, defaultPath);
+            var folderPath = rootPath + defaultPath;
 
             //Tipo do arquivo
             // *imgBackground: Imagem de background
@@ -348,8 +328,9 @@ namespace MyPortfolio.Controllers
             projeto.UpdatedOn = DateTime.Now;
             _context.Projetos.Update(projeto);
             await _context.SaveChangesAsync();
-            //Retorna o nome do novo arquivo para atualizar o ajax
-            return Ok(fileName);
+            //Retorna o caminho completoo até o arquivo via o ajax
+            fullPath = Path.Combine(defaultPath, fileName);
+            return Ok(fullPath);
         }
         #endregion
 
@@ -393,10 +374,58 @@ namespace MyPortfolio.Controllers
             _fileManager.RemoveFile(Path.Combine(folderPath, p.ImgBackground));
             _fileManager.RemoveFile(Path.Combine(folderPath, p.Img01));
             _fileManager.RemoveFile(Path.Combine(folderPath, p.Img02));
-            
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region Helpers
+        public static List<SelectListItem> GetDatabases()
+        {
+            var lis = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "SQL SERVER", Text = "SQL SERVER" },
+                new SelectListItem { Value = "MY SQL", Text = "MY SQL" },
+                new SelectListItem { Value = "POSTGRE", Text = "POSTGRE" }
+            };
+
+            return lis;
+        }
+
+        public static List<SelectListItem> GetCategories()
+        {
+            var lis = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "DESENVOLVIMENTO WEB", Text = "DESENVOLVIMENTO WEB" },
+                new SelectListItem { Value = "DESIGN GRÁFICO", Text = "DESIGN GRÁFICO" }
+            };
+
+            return lis;
+        }
+
+        public static List<SelectListItem> GetFE()
+        {
+            var lis = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "BOOTSTRAP 4", Text = "BOOTSTRAP 4" },
+                new SelectListItem { Value = "BOOTSTRAP 3", Text = "BOOTSTRAP 3" }
+            };
+
+            return lis;
+        }
+
+        public static List<SelectListItem> GetBE()
+        {
+            var lis = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "ASP.NET", Text = "ASP.NET" },
+                new SelectListItem { Value = "ASP.NET CORE 2X", Text = "ASP.NET CORE 2X" },
+                new SelectListItem { Value = "ASP.NET CORE 3X", Text = "ASP.NET CORE 3X" },
+            };
+
+            return lis;
         }
         #endregion
     }

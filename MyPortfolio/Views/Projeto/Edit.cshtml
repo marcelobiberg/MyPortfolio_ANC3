@@ -1,4 +1,4 @@
-﻿@model Projeto
+﻿@model ProjetoCreateEditViewModel
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -27,47 +27,80 @@
                         <div class="title"><strong class="d-block">Informações principais</strong></div>
                         <div class="block-body">
 
-                            <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Título</label>
-                                <div class="col-sm-9">
-                                    <input asp-for="Titulo" value="@Model.Titulo" class="form-control form-control-success">
-                                    <span asp-validation-for="Titulo" class="text-danger"></span>
+                            <div class="row">
+                                <div class="col-8">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Título</label>
+                                        <input asp-for="Titulo"
+                                               type="text"
+                                               placeholder="Título para o seu projeto"
+                                               class="form-control"
+                                               id="Titulo"
+                                               maxlength="80"
+                                               required>
+                                        <span asp-validation-for="Titulo" class="text-danger"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Categoria</label>
-                                <div class="col-sm-9">
-                                    <input asp-for="Tipo" value="@Model.Tipo" class="form-control form-control-success">
-                                    <span asp-validation-for="Tipo" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Back-end</label>
-                                <div class="col-sm-9">
-                                    <input asp-for="BackEnd" value="@Model.BackEnd" class="form-control form-control-success">
-                                    <span asp-validation-for="BackEnd" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Front-end</label>
-                                <div class="col-sm-9">
-                                    <input asp-for="FrontEnd" value="@Model.FrontEnd" class="form-control form-control-success">
-                                    <span asp-validation-for="FrontEnd" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Banco de dados</label>
-                                <div class="col-sm-9">
-                                    <input asp-for="BancoDados" value="@Model.BancoDados" class="form-control form-control-success">
-                                    <span asp-validation-for="BancoDados" class="text-danger"></span>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Categoria</label>
+                                        <select asp-for="Tipo"
+                                                asp-items="@Model.CatList"
+                                                class="form-control">
+                                            <option hidden disabled selected>Selecione a categoria</option>
+                                        </select>
+                                        <span asp-validation-for="Tipo" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Descrição</label>
-                                <div class="col-sm-9">
-                                    <textarea asp-for="Descricao" class="form-control" rows="4">@Model.Descricao</textarea>
-                                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                            <hr class="hr-text" data-content="Tecnologias" />
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Back-end</label>
+                                        <select asp-for="BackEnd"
+                                                asp-items="@Model.BEList"
+                                                class="form-control">
+                                            <option hidden disabled selected>Selecione a tecnologia back-end</option>
+                                        </select>
+                                        <span asp-validation-for="BackEnd" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Front-end</label>
+                                        <select asp-for="FrontEnd"
+                                                asp-items="@Model.FEList"
+                                                class="form-control">
+                                            <option hidden disabled selected>Selecione a tecnologia front-end</option>
+                                        </select>
+                                        <span asp-validation-for="FrontEnd" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Banco de dados</label>
+                                        <select asp-for="BancoDados"
+                                                asp-items="@Model.DBList"
+                                                class="form-control"
+                                                required>
+                                            <option hidden disabled selected>Selecione o DB</option>
+                                        </select>
+                                        <span asp-validation-for="BancoDados" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Descrição</label>
+                                        <textarea asp-for="Descricao" class="form-control" rows="4">@Model.Descricao</textarea>
+                                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -79,8 +112,8 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="card">
-                        <a href="/@ViewData["DirPath"]/@Model.ImgBackground" data-lightbox="gallery" data-title="Imagem de background" id="ImgBackground1">
-                            <img src="/@ViewData["DirPath"]/@Model.ImgBackground" alt="Imagem de background" class="img-small" id="ImgBackground2">
+                        <a href="@Model.BackgroundPath" data-lightbox="gallery" data-title="Imagem de background" id="ImgBackground1">
+                            <img src="@Model.BackgroundPath" alt="Imagem de background" class="img-small" id="ImgBackground2">
                         </a>
                         <div class="card-body">
                             <h6 class="card-title mb-1">
@@ -102,8 +135,8 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="card">
-                        <a href="/@ViewData["DirPath"]/@Model.Img01" data-lightbox="gallery" data-title="Imagem 01" id="img11">
-                            <img src="/@ViewData["DirPath"]/@Model.Img01" alt="Imagem 01" class="img-small" id="img12">
+                        <a href="@Model.Img01Path" data-lightbox="gallery" data-title="Imagem 01" id="img11">
+                            <img src="@Model.Img01Path" alt="Imagem 01" class="img-small" id="img12">
                         </a>
                         <div class="card-body">
                             <h6 class="card-title mb-1">
@@ -125,8 +158,8 @@
                 </div>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="card">
-                        <a href="/@ViewData["DirPath"]/@Model.Img02" data-lightbox="gallery" data-title="Imagem 02" id="img21">
-                            <img src="/@ViewData["DirPath"]/@Model.Img02" alt="Imagem 02" class="img-small" id="img22">
+                        <a href="@Model.Img02Path" data-lightbox="gallery" data-title="Imagem 02" id="img21">
+                            <img src="@Model.Img02Path" alt="Imagem 02" class="img-small" id="img22">
                         </a>
                         <div class="card-body">
                             <h6 class="card-title mb-1">
@@ -197,10 +230,9 @@
                             $('input:hidden[name="__RequestVerificationToken"]').val());
                     },
                     //O param 'data' retorna o identificador da imagem
-                    success: function (imgId) {
+                    success: function (callback) {
                         //... busca o diretório padrão em appsettings.json
-                        let defaultPath = '/@ViewBag.DirPath';
-                        var fullPath = defaultPath + imgId;
+                        var fullPath = callback;
 
                         switch (inputId) {
                             case 'imgBackground':

@@ -28,6 +28,35 @@
     <Folder Include="wwwroot\img\Uploads\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\lib\bootstrap input-file\js\fileinput.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\fileinput.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\locales\pt-BR.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\plugins\piexif.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\plugins\piexif.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\plugins\purify.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\plugins\purify.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\plugins\sortable.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\js\plugins\sortable.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\scss\fileinput-rtl.scss" />
+    <None Include="wwwroot\lib\bootstrap input-file\scss\fileinput.scss" />
+    <None Include="wwwroot\lib\bootstrap input-file\scss\themes\explorer-fas\theme.scss" />
+    <None Include="wwwroot\lib\bootstrap input-file\scss\themes\explorer-fa\theme.scss" />
+    <None Include="wwwroot\lib\bootstrap input-file\scss\themes\explorer\theme.scss" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\explorer-fas\theme.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\explorer-fas\theme.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\explorer-fa\theme.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\explorer-fa\theme.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\explorer\theme.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\explorer\theme.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\fas\theme.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\fas\theme.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\fa\theme.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\fa\theme.min.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\gly\theme.js" />
+    <None Include="wwwroot\lib\bootstrap input-file\themes\gly\theme.min.js" />
+  </ItemGroup>
+
 
 
 </Project>

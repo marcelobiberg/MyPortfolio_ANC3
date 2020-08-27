@@ -1,144 +1,211 @@
-﻿@model Projeto
+﻿@model ProjetoCreateEditViewModel
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="page-header no-margin-bottom">
     <div class="container-fluid">
-        <h2 class="h5 no-margin-bottom">Projetos</h2>
+        <h2 class="h5 no-margin-bottom">Projetos para seu portfólio</h2>
     </div>
 </div>
 <div class="container-fluid">
     <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index-2.html">Home</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Projeto Listar</a></li>
         <li class="breadcrumb-item active">Adicionar projeto</li>
     </ul>
 </div>
 <section>
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-xl-8">
+        <div class="block">
+            <div class="block-body">
+                <form asp-action="Create"
+                      enctype="multipart/form-data"
+                      method="POST">
 
-                        <form action="/" enctype="multipart/form-data" method="POST">
+                    <div class="row">
+                        <div class="col-8">
                             <div class="form-group">
                                 <label class="form-control-label">Título</label>
-                                <input type="text" placeholder="Título para o seu projeto" class="form-control" id="Titulo">
+                                <input asp-for="Titulo"
+                                       type="text"
+                                       placeholder="Título para o seu projeto"
+                                       class="form-control"
+                                       id="Titulo"
+                                       maxlength="80"
+                                       required>
+                                <span asp-validation-for="Titulo" class="text-danger"></span>
                             </div>
+                        </div>
+
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label">Categoria</label>
-                                <input type="text" placeholder="Categoria do projeto" class="form-control" id="Categoria">
+                                <select asp-for="Tipo"
+                                        asp-items="@Model.CatList"
+                                        class="form-control">
+                                    <option hidden disabled selected>Selecione a categoria</option>
+                                </select>
+                                <span asp-validation-for="Tipo" class="text-danger"></span>
                             </div>
+                        </div>
+                    </div>
+
+                    <hr class="hr-text" data-content="Tecnologias" />
+
+                    <div class="row">
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label">Back-end</label>
-                                <input type="text" placeholder="Tecnologias de back-end" class="form-control" id="Backend">
+                                <select asp-for="BackEnd"
+                                        asp-items="@Model.BEList"
+                                        class="form-control">
+                                    <option hidden disabled selected>Selecione a tecnologia back-end</option>
+                                </select>
+                                <span asp-validation-for="BackEnd" class="text-danger"></span>
                             </div>
+                        </div>
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label">Front-end</label>
-                                <input type="text" placeholder="Tecnologias de front-end" class="form-control" id="Frontend">
+                                <select asp-for="FrontEnd"
+                                        asp-items="@Model.FEList"
+                                        class="form-control">
+                                    <option hidden disabled selected>Selecione a tecnologia front-end</option>
+                                </select>
+                                <span asp-validation-for="FrontEnd" class="text-danger"></span>
                             </div>
+                        </div>
+                        <div class="col-4">
                             <div class="form-group">
                                 <label class="form-control-label">Banco de dados</label>
-                                <input type="text" placeholder="Banco de dados" class="form-control" id="BancoDados">
+                                <select asp-for="BancoDados"
+                                        asp-items="@Model.DBList"
+                                        class="form-control"
+                                        required>
+                                    <option hidden disabled selected>Selecione o DB</option>
+                                </select>
+                                <span asp-validation-for="BancoDados" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label class="form-control-label">Descrição</label>
-                                <textarea rows="4" placeholder="Descrição sobre o projeto" class="form-control" id="Desc"></textarea>
-                            </div>
-
-                            <div class="">
-                                <label class="form-control-label">Imagens do projeto</label>
-                                <div class="dropzone" id="myDropzone"></div>
-                            </div>
-                            <div class="form-group mt-5">
-                                <button class="btn btn-primary" type="submit" id="submit-all"> Adicionar </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+
+                    <hr class="hr-text" data-content="Imagens" />
+
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Background</label>
+                                <div class="file-loading">
+                                    <input asp-for="ImgBackground"
+                                           type="file"
+                                           accept="image/jpeg, image/png"
+                                           class="custom-file-input"
+                                           id="background"
+                                           required>
+                                    <label class="custom-file-label" for="background">Selecione a imagem de background</label>
+                                </div>
+                                <span asp-validation-for="ImgBackground" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Imagem 01</label>
+                                <div class="file-loading">
+                                    <input asp-for="Img01"
+                                           type="file"
+                                           accept=".jpg,.png"
+                                           class="custom-file-input"
+                                           id="img01"
+                                           required>
+                                    <label class="custom-file-label" for="img01">Selecione a imagem 01</label>
+                                </div>
+                                <span asp-validation-for="Img01" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Imagem 02</label>
+                                <div class="file-loading">
+                                    <input asp-for="Img02"
+                                           type="file"
+                                           accept=".jpg,.png"
+                                           class="custom-file-input"
+                                           id="img02"
+                                           name="img02"
+                                           required>
+                                    <label class="custom-file-label" for="img02">Selecione a imagem 02</label>
+                                </div>
+                                <span asp-validation-for="Img02" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-5">
+                        <label class="form-control-label">Descrição</label>
+                        <textarea asp-for="Descricao"
+                                  rows="6"
+                                  placeholder="Descrição sobre o projeto"
+                                  class="form-control"
+                                  id="Desc"
+                                  maxlength="500"
+                                  required></textarea>
+                    </div>
+                    <div class="form-group mt-5">
+                        <button class="btn btn-success" type="submit" id="submit-all"> Adicionar </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </section>
 
-@section DropzoneJs {
-    <script src="~/lib/dropzone/dropzone.js"></script>
-    <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
-    <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
+@section ProjetoCreateCss{
+    <link href="~/lib/bootstrap input-file/css/fileinput.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <link href="~/lib/bootstrap input-file/themes/explorer-fas/theme.css" rel="stylesheet" />
+}
+
+@section ProjetoCreateJs {
+    <script src="~/lib/bootstrap input-file/js/fileinput.min.js" type="text/javascript"></script>
+    <script src="~/lib/bootstrap input-file/themes/fas/theme.min.js" type="text/javascript"></script>
+    <script src="~/lib/bootstrap input-file/themes/explorer-fas/theme.min.js" type="text/javascript"></script>
+    <script src="~/lib/bootstrap input-file/js/locales/pt-BR.js" type="text/javascript"></script>
+
     <script type="text/javascript">
 
-        function myParamName() {
-            return "files";
-        };
+        $(document).ready(function () {
+            $("#background").fileinput({
+                'theme': 'explorer-fas',
+                language: "pt-BR",
+                'showUpload': false,
+                allowedFileExtensions: ["jpg", "png"],
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false
+            });
 
-        Dropzone.options.myDropzone = {
-            url: "/Projeto/Create",
-            maxFilesize: 2, // MB
-            maxFiles: 3,
-            parallelUploads: 3,
-            clickable: true,
-            acceptedFiles: ".png,.jpg",
-            uploadMultiple: true,
-            createImageThumbnails: true,
-            autoProcessQueue: false,
-            addRemoveLinks: true,
-            paramName: myParamName,
-           //Mensagens padrões do DropzoneJS
-            dictDefaultMessage: "Arraste e solte as imagens aqui",
-            dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
-            dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
-            dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
-            dictInvalidFileType: "You can't upload files of this type.",
-            dictResponseError: "Server responded with {{statusCode}} code.",
-            dictCancelUpload: "Cancel upload",
-            dictCancelUploadConfirmation: "Are you sure you want to cancel this upload?",
-            dictRemoveFile: "<button class='btn-lg btn-circle btn-danger'>Remover</button>",
-            dictMaxFilesExceeded: "You can not upload any more files.",
+            $("#img01").fileinput({
+                'theme': 'explorer-fas',
+                language: "pt-BR",
+                'showUpload': false,
+                allowedFileExtensions: ["jpg", "png"],
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false
+            });
 
-            init: function () {
-                myDropzone = this;
-                var submitButton = document.querySelector("#submit-all");
-                var wrapperThis = this;
 
-                submitButton.addEventListener("click", function () {
-                    wrapperThis.processQueue();
-                });
-
-                this.on('sendingmultiple', function (data, xhr, formData) {
-                    xhr.setRequestHeader("XSRF-TOKEN", $('input:hidden[name="__RequestVerificationToken"]').val());
-                    formData.append("Titulo", $('#Titulo').val().trim());
-                    formData.append("Categoria", $('#Categoria').val().trim());
-                    formData.append("BackEnd", $('#Backend').val().trim());
-                    formData.append("FrontEnd", $('#Frontend').val().trim());
-                    formData.append("BD", $('#BancoDados').val().trim());
-                    formData.append("Desc", $('#Desc').val().trim());
-
-                    submitButton.setAttribute("disabled", "disabled");
-                });
-
-                this.on("successmultiple", function (file, formData) {
-                    Messenger.options = {
-                        extraClasses: "messenger-fixed messenger-on-top messenger-on-right",
-                        theme: "flat",
-                        messageDefaults: {
-                            showCloseButton: !0
-                        }
-                    },
-                    Messenger().post({
-                        message: "Projeto adicionado com sucesso =)",
-                        type: "success"
-                    })
-                    setTimeout(function(){window.location.href = "/Projeto/Index";}, 3500);
-                });
-                this.on("error", function (file, errorMessage) {
-                    $("body").prepend('<div class="alert alert-danger alert-dismissable">' +
-                        '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                        '<strong>Error!</strong> ' + errorMessage + '</div >');
-                    submitButton.removeAttribute("disabled");
-                });
-            }
-        };
+            $("#img02").fileinput({
+                'theme': 'explorer-fas',
+                language: "pt-BR",
+                'showUpload': false,
+                allowedFileExtensions: ["jpg", "png"],
+                overwriteInitial: false,
+                initialPreviewAsData: true,
+                dropZoneEnabled: false
+            });
+        });
 
     </script>
 }

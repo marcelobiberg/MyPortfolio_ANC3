@@ -7,22 +7,22 @@ namespace MyPortfolio.Models
     {
         [Key]
         public string ID { get; set; }
-        [Required(ErrorMessage = "Favor preencher o campo Título")]
+        [Required]
         [MaxLength(100)]
         public string Titulo { get; set; }
-        [Required(ErrorMessage = "Favor preencher o campo Descrição")]
+        [Required]
         [MaxLength(500)]
         public string Descricao { get; set; }
-        [Required(ErrorMessage = "Favor preencher o campo Categoria")]
+        [Required]
         [MaxLength(100)]
         public string Tipo { get; set; }
-        [Required(ErrorMessage = "Favor preencher o campo Front-end")]
+        [Required]
         [MaxLength(100)]
         public string FrontEnd { get; set; }
-        [Required(ErrorMessage = "Favor preencher o campo Back-end")]
+        [Required]
         [MaxLength(100)]
         public string BackEnd { get; set; }
-        [Required(ErrorMessage = "Favor preencher o campo Banco de dados")]
+        [Required]
         [MaxLength(100)]
         public string BancoDados { get; set; }
         [MaxLength(40)]
