@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace MyPortfolio.ViewModels
+namespace MyPortfolio.Models.ViewModels.Projetos
 {
     public class UpdateImageAjaxViewModel
     {

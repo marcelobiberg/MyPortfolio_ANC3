@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\css\Login\" />
-    <Folder Include="wwwroot\img\Uploads\" />
   </ItemGroup>
 
   <ItemGroup>

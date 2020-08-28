@@ -1,0 +1,214 @@
+﻿@model ProfileViewModel
+@{ Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<div class="page-header no-margin-bottom">
+    <div class="container-fluid">
+        <h2 class="h5 no-margin-bottom">Atualizar dados do perfil</h2>
+    </div>
+</div>
+<div class="container-fluid">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item active">Meus dados</li>
+    </ul>
+</div>
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card card-profile">
+                    <div class="card-body text-center">
+                        <h4 class="mb-3 text-gray-light">@Model.Nome</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <form asp-controller="Account"
+                      asp-action="ChangeAuth"
+                      class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Autenticação</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-auto d-flex align-items-center">
+                                <input id="avatar"
+                                       class="d-none"
+                                       type="file"
+                                       accept="image/x-png,image/jpeg"
+                                       onchange="UploadAvatar('@Model.ID');" />
+                                <input hidden asp-for="AvatarRelativePath" />
+                                <label for="avatar"
+                                       style="background-image: url(@Model.AvatarRelativePath)"
+                                       class="avatar avatar-lg"
+                                       id="imgAvatar"></label>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="UserName"
+                                           class="form-label"></label>
+                                    <input asp-for="UserName"
+                                           placeholder="Nome para usuário"
+                                           class="form-control"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email"
+                                   class="form-label"></label>
+                            <input asp-for="Email"
+                                   type="email"
+                                   placeholder="Email"
+                                   class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password"
+                                   class="form-label"></label>
+                            <input asp-for="Password"
+                                   type="password"
+                                   class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword"
+                                   class="form-label"></label>
+                            <input asp-for="ConfirmPassword"
+                                   type="password"
+                                   class="form-control">
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-8">
+                <form asp-controller="Account"
+                      asp-action="EditProfile"
+                      class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Dados principais</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group mb-4">
+                                    <label asp-for="Nome"
+                                           class="form-label"></label>
+                                    <input asp-for="Nome"
+                                           type="text"
+                                           placeholder="Nome"
+                                           class="form-control"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group mb-4">
+                                    <label class="form-control-label">Cargo</label>
+                                    <select asp-for="Cargo"
+                                            asp-items="@Model.RoleList"
+                                            class="form-control"
+                                            required>
+                                        <option hidden disabled selected>Selecione o cargo</option>
+                                    </select>
+                                    <span asp-validation-for="Cargo" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                    <label asp-for="AboutDescription"
+                                           class="form-label"></label>
+                                    <textarea asp-for="AboutDescription"
+                                              rows="5"
+                                              placeholder="Descrição sobre o usuário"
+                                              class="form-control"
+                                              required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section GalleryCss{
+    <link href="~/lib/lightbox2/css/lightbox.min.css" rel="stylesheet" />
+}
+
+@section GalleryJS{
+    <script src="~/lib/lightbox2/js/lightbox.min.js"></script>
+    <script src="~/lib/messenger-hubspot/build/js/messenger.min.js"></script>
+    <script src="~/lib/messenger-hubspot/build/js/messenger-theme-flat.js"></script>
+
+    <script>
+
+        Messenger.options = {
+            extraClasses: "messenger-fixed messenger-on-right messenger-on-top",
+            theme: "flat"
+        };
+
+        $(document).ready(function () {
+            var m = '@Model.TempMessage';
+
+            if (m) {
+                Messenger().post({
+                    message: m,
+                    type: "success"
+                })
+            }
+        });
+
+        function UploadAvatar(Id) {
+            var input = document.getElementById("avatar");
+            var file = input.files;
+            var formData = new FormData();
+
+            formData.append("file", file[0]);
+            formData.append("profileId", Id);
+
+            //Valida o formato da imagem
+            var idxDot = input.value.lastIndexOf(".") + 1;
+            var extFile = input.value.substr(idxDot, input.value.length).toLowerCase();
+            if (!(extFile == "jpg" || extFile == "jpeg" || extFile == "png")) {
+                Messenger().post({
+                    message: "Somente imagens no formato jpg ou png!",
+                    type: "error"
+                })
+                return;
+            }
+
+            $.ajax(
+                {
+                    url: "/Account/UpdateAvatarAjax",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: "POST",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    //O param 'data' retorna o identificador da imagem
+                    success: function (callback) {
+                        //... busca o diretório padrão em appsettings.json
+                        var fullPath = callback;
+                        document.getElementById("imgAvatar").style.backgroundImage = 'url(' + fullPath + ')';
+                        document.getElementById("avatarAdmin").src = fullPath;
+
+                        Messenger().post({
+                            message: "Avatar atualizada!",
+                            type: "success"
+                        })
+                    }
+                }
+            );
+        }
+
+    </script>
+}

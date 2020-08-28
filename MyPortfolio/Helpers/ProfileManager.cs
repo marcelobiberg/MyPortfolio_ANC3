@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyPortfolio.Models;
-using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace MyPortfolio.Helpers
 {
@@ -18,6 +19,9 @@ namespace MyPortfolio.Helpers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        /// <summary>
+        /// Usuário logado no sistema
+        /// </summary>
         public ApplicationUser CurrentUser
         {
             get
@@ -28,6 +32,17 @@ namespace MyPortfolio.Helpers
                 }
                 return _currentUser;
             }
+        }
+
+        public List<SelectListItem> GetRoles()
+        {
+            var lis = new List<SelectListItem>()
+            {
+                new SelectListItem { Value = "DESENVOLVIMENTO WEB", Text = "DESENVOLVIMENTO WEB" },
+                new SelectListItem { Value = "DESIGN GRÁFICO", Text = "DESIGN GRÁFICO" }
+            };
+
+            return lis;
         }
     }
 }

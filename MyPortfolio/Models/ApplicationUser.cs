@@ -10,16 +10,14 @@ namespace MyPortfolio.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Column(TypeName = "bit")]
-        public bool Ativo { get; set; }
-        [Required(ErrorMessage = "Nome obrigatório")]
-        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
+        [Required]
+        [MaxLength(100)]
         public string Nome { get; set; }
-        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
+        [MaxLength(100)]
         public string Avatar { get; set; }
-        [MaxLength(100, ErrorMessage = "Máximo 100 caracteres")]
+        [MaxLength(100)]
         public string Cargo { get; set; }
-        [MaxLength(800, ErrorMessage = "Máximo 800 caracteres")]
+        [MaxLength(500)]
         [Column(TypeName = "ntext")]
         public string AboutDescription { get; set; }
         public DateTime? CreatedOn { get; set; }
