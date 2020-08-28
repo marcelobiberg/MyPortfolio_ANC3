@@ -55,11 +55,11 @@
     <div class="d-flex align-items-stretch">
         <nav id="sidebar">
             <div class="sidebar-header d-flex align-items-center">
-                <a asp-action="Index" asp-controller="Account" asp-route-returnUrl="@returnUrl">
-                    <div class="avatar"><img src="~/img/@profile.CurrentUser.Avatar" alt="Avatar do usuário" class="img-fluid rounded-circle"></div>
+                <a asp-action="EditProfile" asp-controller="Account" asp-route-returnUrl="@returnUrl">
+                    <div class="avatar"><img src="~/img/Uploads/@profile.CurrentUser.Avatar" alt="Avatar do usuário" class="img-fluid rounded-circle" id="avatarAdmin"></div>
                 </a>
-                <a asp-action="Index" asp-controller="Account" asp-route-returnUrl="@returnUrl">
-                    <div class="title">
+                <a asp-action="EditProfile" asp-controller="Account" asp-route-returnUrl="@returnUrl">
+                    <div class="title text-center">
                         <h1 class="h5">@profile.CurrentUser.Nome</h1>
                         <p>@profile.CurrentUser.Cargo</p>
                     </div>

@@ -50,7 +50,6 @@ namespace MyPortfolio
                     Nome = Name,
                     Email = Email,
                     UserName = UserName,
-                    Ativo = true,
                     Cargo = Cargo,
                     AboutDescription = AboutDescription,
                     Avatar = Avatar,
