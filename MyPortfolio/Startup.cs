@@ -134,11 +134,15 @@ namespace MyPortfolio
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+
+                //TODO: remover
+                app.UseDeveloperExceptionPage();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();

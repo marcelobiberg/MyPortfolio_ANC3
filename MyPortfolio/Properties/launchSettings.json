@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -7,13 +7,15 @@
       "sslPort": 44341
     }
   },
+  "applicationUrl": "http://localhost:5000, https://localhost:5001",
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "ancmHostingModel": "OutOfProcess"
     },
     "MyPortfolio": {
       "commandName": "Project",
@@ -29,6 +31,5 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
-  },
-  "applicationUrl": "http://localhost:5000, https://localhost:5001"
+  }
 }
