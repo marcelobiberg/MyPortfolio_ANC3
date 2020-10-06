@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MyPortfolio.Data;
 using MyPortfolio.Helpers;
 using MyPortfolio.Models;
 using MyPortfolio.Models.ViewModels.Projetos;
-using MyPortfolio.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyPortfolio.Controllers
 {
@@ -164,6 +161,8 @@ namespace MyPortfolio.Controllers
                     ImgBackground = imgBg,
                     Img01 = img01,
                     Img02 = img02,
+                    GitUrl = vm.GitUrl,
+                    SiteUrl = vm.SiteUrl,
                     CreatedOn = DateTime.Now
                 };
 
@@ -208,6 +207,8 @@ namespace MyPortfolio.Controllers
                 BackEnd = projeto.BackEnd,
                 FrontEnd = projeto.FrontEnd,
                 Descricao = projeto.Descricao,
+                GitUrl = projeto.GitUrl,
+                SiteUrl = projeto.SiteUrl,
                 BackgroundPath = $@"{_configuration["File:DefaultFolder"]}" + projeto.ImgBackground,
                 Img01Path = $@"{_configuration["File:DefaultFolder"]}" + projeto.Img01,
                 Img02Path = $@"{_configuration["File:DefaultFolder"]}" + projeto.Img02,
@@ -240,6 +241,8 @@ namespace MyPortfolio.Controllers
                 c => c.BackEnd,
                 c => c.FrontEnd,
                 c => c.BancoDados,
+                c => c.GitUrl,
+                c => c.SiteUrl,
                 c => c.Descricao))
             {
                 try

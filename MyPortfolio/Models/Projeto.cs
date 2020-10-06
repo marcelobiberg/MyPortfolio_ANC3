@@ -31,6 +31,11 @@ namespace MyPortfolio.Models
         public string Img01 { get; set; }
         [MaxLength(40)]
         public string Img02 { get; set; }
+        [MaxLength(150)]
+        public string GitUrl { get; set; }
+        [MaxLength(150)]
+        public string SiteUrl { get; set; }
+
         public DateTime? CreatedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
     }

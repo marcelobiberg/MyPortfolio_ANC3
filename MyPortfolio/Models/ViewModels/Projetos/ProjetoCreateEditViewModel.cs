@@ -54,6 +54,8 @@ namespace MyPortfolio.Models.ViewModels.Projetos
         public IFormFile Img02 { get; set; }
 
         public string Img02Path { get; set; }
+        public string GitUrl { get; set; }
+        public string SiteUrl { get; set; }
 
     }
 }

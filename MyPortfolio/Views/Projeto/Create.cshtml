@@ -39,6 +39,32 @@
 
                         <div class="col-4">
                             <div class="form-group">
+                                <label class="form-control-label">Github</label>
+                                <input asp-for="GitUrl"
+                                       type="text"
+                                       placeholder="Url para o github"
+                                       class="form-control"
+                                       id="Titulo"
+                                       maxlength="150"
+                                       required>
+                                <span asp-validation-for="GitUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label class="form-control-label">Url site</label>
+                                <input asp-for="SiteUrl"
+                                       type="text"
+                                       placeholder="Url para a landing page"
+                                       class="form-control"
+                                       id="Titulo"
+                                       maxlength="150"
+                                       required>
+                                <span asp-validation-for="SiteUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
                                 <label class="form-control-label">Categoria</label>
                                 <select asp-for="Tipo"
                                         asp-items="@Model.CatList"
