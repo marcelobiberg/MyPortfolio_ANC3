@@ -426,6 +426,7 @@ namespace MyPortfolio.Controllers
                 new SelectListItem { Value = "ASP.NET", Text = "ASP.NET" },
                 new SelectListItem { Value = "ASP.NET CORE 2X", Text = "ASP.NET CORE 2X" },
                 new SelectListItem { Value = "ASP.NET CORE 3X", Text = "ASP.NET CORE 3X" },
+                new SelectListItem { Value = "Blazor", Text = "Blazor" },
             };
 
             return lis;
