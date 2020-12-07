@@ -4,7 +4,7 @@
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:52726",
-      "sslPort": 44341
+      "sslPort": 0
     }
   },
   "applicationUrl": "http://localhost:5000, https://localhost:5001",
@@ -15,7 +15,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "ancmHostingModel": "OutOfProcess"
+      "ancmHostingModel": "OutOfProcess",
+      "use64Bit": true
     },
     "MyPortfolio": {
       "commandName": "Project",

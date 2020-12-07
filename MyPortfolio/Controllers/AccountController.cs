@@ -201,9 +201,6 @@ namespace MyPortfolio.Controllers
 
             return null;
         }
-
-
         #endregion
-
     }
 }
